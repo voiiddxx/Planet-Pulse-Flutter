@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:planetpulse/core/start/splashservice.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 
@@ -11,6 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
+  final SplashService splashService = SplashService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,16 +51,20 @@ class SplashScreenState extends State<SplashScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        height: 85,
-                        width: 85,
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(51, 51, 51, 1),
-                            borderRadius: BorderRadius.circular(85)),
-                        child: Icon(
-                          Icons.arrow_forward_ios_sharp,
-                          color: Colors.white,
-                          size: 30,
+                      InkWell(
+                        onTap: () =>
+                            {splashService.checkUserisPresentorNot(context)},
+                        child: Container(
+                          height: 85,
+                          width: 85,
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(51, 51, 51, 1),
+                              borderRadius: BorderRadius.circular(85)),
+                          child: const Icon(
+                            Icons.arrow_forward_ios_sharp,
+                            color: Colors.white,
+                            size: 30,
+                          ),
                         ),
                       )
                     ],
