@@ -5,18 +5,16 @@ import 'package:planetpulse/core/auth/authservice.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController usernameScontroller = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
   final AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
@@ -45,21 +43,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 customTextFiled(
                     obscure: false,
-                    controller: usernameController,
+                    controller: usernameScontroller,
                     hinttext: "Username",
                     icon: const Icon(
                       Icons.person_sharp,
-                      size: 20,
-                    )),
-                const SizedBox(
-                  height: 20,
-                ),
-                customTextFiled(
-                    obscure: false,
-                    controller: emailController,
-                    hinttext: "Enter Your Email",
-                    icon: const Icon(
-                      Icons.email,
                       size: 20,
                     )),
                 const SizedBox(
@@ -91,19 +78,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       onPressed: () {
-                        authService.createUserAccount(
-                            username: usernameController.text.trim(),
-                            email: emailController.text.trim(),
+                        authService.loginService(
+                            username: usernameScontroller.text.trim(),
                             password: passwordController.text.trim(),
                             context: context);
                       },
-                      child: const Subtitle(
-                          color: Colors.white, text: "Create Now")),
+                      child:
+                          const Subtitle(color: Colors.white, text: "Login")),
                 ),
                 const SizedBox(height: 10),
                 InkWell(
                   onTap: () =>
-                      {Navigator.pushNamed(context, RoutesNames.loginScreen)},
+                      {Navigator.pushNamed(context, RoutesNames.homescreen)},
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
