@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/View/components/textfield/textfiled.dart';
 import 'package:planetpulse/core/auth/authservice.dart';
+import 'package:planetpulse/providers/authprovider.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,9 +17,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController usernameScontroller = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   final AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AuthProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -78,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       onPressed: () {
-                        authService.loginService(
+                        provider.loginUser(
                             username: usernameScontroller.text.trim(),
                             password: passwordController.text.trim(),
                             context: context);
