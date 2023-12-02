@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planetpulse/Routes/routenames.dart';
+import 'package:planetpulse/View/Screens/Auth/register.dart';
 import 'package:planetpulse/View/Screens/home/home.dart';
 import 'package:planetpulse/View/Screens/start/splash.dart';
 
@@ -12,6 +13,10 @@ Route<dynamic> onGenreateSetting(RouteSettings settings) {
     case RoutesNames.homescreen:
       return MaterialPageRoute(builder: (context) {
         return const HomeScreen();
+      });
+    case RoutesNames.registerScreen:
+      return MaterialPageRoute(builder: (context) {
+        return const RegisterScreen();
       });
 
     default:

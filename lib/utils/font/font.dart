@@ -34,7 +34,7 @@ class HeadingText extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.manrope(
-          fontSize: 28, fontWeight: FontWeight.bold, color: color),
+          fontSize: 25, fontWeight: FontWeight.bold, color: color),
     );
   }
 }
@@ -49,7 +49,7 @@ class Subtitle extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.manrope(
-          fontSize: 20, fontWeight: FontWeight.w300, color: color),
+          fontSize: 17, fontWeight: FontWeight.w300, color: color),
     );
   }
 }
