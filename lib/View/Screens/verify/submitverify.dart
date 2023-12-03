@@ -1,9 +1,11 @@
 import 'dart:io';
-
+import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
 import 'package:planetpulse/View/components/textfield/whitetextfiled.dart';
+import 'package:planetpulse/core/verify/verifyservice.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
+import 'package:planetpulse/utils/res/snackbar.dart';
 
 class SubmitSCreen extends StatefulWidget {
   final File image;
@@ -17,6 +19,28 @@ class SubmitSCreen extends StatefulWidget {
 
 class _SubmitSCreenState extends State<SubmitSCreen> {
   final TextEditingController detailcontroller = TextEditingController();
+  final VerificationService verificationService = VerificationService();
+
+  void postData() async {
+    try {
+      final cloudinary = CloudinaryPublic('dwkmxsthr', 'pdrcp1le');
+      CloudinaryResponse response = await cloudinary.uploadFile(
+        CloudinaryFile.fromFile(widget.image.path),
+      );
+      showSnackBar(context, response.secureUrl, Colors.yellow);
+      // ignore: use_build_context_synchronously
+      await verificationService.submitVerification(
+          verifytask: widget.submitTask,
+          verifyimage: response.secureUrl,
+          context: context);
+    } catch (e) {
+      if (context.mounted) {
+        print(e.toString());
+        showSnackBar(context, e.toString(), Colors.red);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +131,9 @@ class _SubmitSCreenState extends State<SubmitSCreen> {
                 height: 50,
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      postData();
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 33, 33, 33),
                         elevation: 0,

@@ -15,18 +15,15 @@ class VerificationService {
       ApplyVerifyModal applyVerifyModal =
           ApplyVerifyModal(verifytask: verifytask, verifyimage: verifyimage);
       if (verifyimage != '' && verifytask != '') {
-        http.Response response = await http.post(Uri.parse(""),
+        http.Response response = await http.post(
+            Uri.parse("https://planet-pulse-bphm.onrender.com/post-ques"),
             body: applyVerifyModal.toJson(),
             headers: <String, String>{
               "Content-type": "application/json",
               "Accept": "application/json",
               'x-auth-token': token!
             });
-        if (response.statusCode == 200) {
-          print(response.body);
-        } else {
-          print("Some Error arrised");
-        }
+        print(response.body);
       }
     } catch (e) {
       if (context.mounted) {

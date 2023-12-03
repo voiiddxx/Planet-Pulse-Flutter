@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cloudinary: ^1.2.0
+  cloudinary_public: ^0.23.1
   cupertino_icons: ^1.0.2
   file_picker: ^6.1.1
   flutter:
