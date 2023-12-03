@@ -105,7 +105,7 @@ class PostCard extends StatelessWidget {
                       weight: FontWeight.w300,
                       size: 12),
                   const SizedBox(
-                    width: 8,
+                    width: 9,
                   ),
                   CustomFont(
                       color: const Color.fromARGB(255, 117, 117, 117),
