@@ -32,6 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts: ^6.1.0
+  google_nav_bar: ^5.0.6
   http: ^1.1.2
   provider: ^6.1.1
   shared_preferences: ^2.2.2
