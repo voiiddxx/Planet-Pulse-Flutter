@@ -1,10 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:planetpulse/Routes/routenames.dart';
+import 'package:planetpulse/View/Screens/weekly/submittask.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
+import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ExploreWeeklyTrask extends StatefulWidget {
@@ -19,8 +25,36 @@ class ExploreWeeklyTrask extends StatefulWidget {
 }
 
 dynamic taskData = {};
+File? taskSubmitImage;
 
 class _ExploreWeeklyTraskState extends State<ExploreWeeklyTrask> {
+  clickImage() async {
+    try {
+      final result = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (result != null) {
+        final tempimage = File(result.path);
+        setState(() {
+          taskSubmitImage = tempimage;
+        });
+
+        if (context.mounted) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return SubmitTaskScreen(
+              imagetosubmit: taskSubmitImage!,
+              task: taskData!,
+            );
+          }));
+        }
+      } else {
+        if (context.mounted) {
+          showSnackBar(context, "Please Select Image", Colors.red);
+        }
+      }
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
   void getTaskCategoryData({required String category}) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -166,17 +200,19 @@ class _ExploreWeeklyTraskState extends State<ExploreWeeklyTrask> {
                                       borderRadius: BorderRadius.circular(15)),
                                   backgroundColor:
                                       const Color.fromARGB(255, 34, 34, 34)),
-                              onPressed: () {},
+                              onPressed: () {
+                                clickImage();
+                              },
                               child: const CustomFont(
                                   color: Colors.white,
-                                  text: "SUbmit Task",
+                                  text: "Submit Task",
                                   weight: FontWeight.w500,
                                   size: 15)),
-                        )
+                        ),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

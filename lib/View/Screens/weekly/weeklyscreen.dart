@@ -87,7 +87,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: const Icon(
-                              Icons.work_history_rounded,
+                              Icons.model_training_sharp,
                               color: Colors.white,
                               size: 40,
                             ),
@@ -137,7 +137,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                                 color: Colors.green,
                                 text: "Complete",
                                 weight: FontWeight.bold,
-                                size: 12)),
+                                size: 14)),
                       )
                     ],
                   ),
@@ -223,7 +223,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                                 color: Color.fromARGB(255, 206, 185, 0),
                                 text: "Complete",
                                 weight: FontWeight.bold,
-                                size: 12)),
+                                size: 14)),
                       )
                     ],
                   ),
@@ -258,7 +258,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: const Icon(
-                              Icons.work_history_rounded,
+                              Icons.hotel_class_rounded,
                               color: Colors.white,
                               size: 40,
                             ),
@@ -308,7 +308,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                                 color: Colors.red,
                                 text: "Complete",
                                 weight: FontWeight.bold,
-                                size: 12)),
+                                size: 14)),
                       )
                     ],
                   ),

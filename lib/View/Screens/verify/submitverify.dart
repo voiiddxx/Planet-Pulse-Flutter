@@ -128,22 +128,24 @@ class _SubmitSCreenState extends State<SubmitSCreen> {
               child: SizedBox(),
             ),
             SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      postData();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 33, 33, 33),
-                        elevation: 0,
-                        shape: ContinuousRectangleBorder(
-                            borderRadius: BorderRadius.circular(15))),
-                    child: const CustomFont(
-                        color: Colors.white,
-                        text: "Submit",
-                        weight: FontWeight.w500,
-                        size: 15)))
+              height: 50,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  postData();
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 33, 33, 33),
+                    elevation: 0,
+                    shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(15))),
+                child: const CustomFont(
+                    color: Colors.white,
+                    text: "Submit",
+                    weight: FontWeight.w500,
+                    size: 15),
+              ),
+            ),
           ],
         ),
       ),

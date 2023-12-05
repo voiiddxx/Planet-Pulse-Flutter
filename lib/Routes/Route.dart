@@ -7,6 +7,7 @@ import 'package:planetpulse/View/Screens/Auth/register.dart';
 import 'package:planetpulse/View/Screens/home/home.dart';
 import 'package:planetpulse/View/Screens/start/splash.dart';
 import 'package:planetpulse/View/Screens/verify/submitverify.dart';
+import 'package:planetpulse/View/Screens/weekly/submittask.dart';
 
 Route<dynamic> onGenreateSetting(RouteSettings settings) {
   switch (settings.name) {
