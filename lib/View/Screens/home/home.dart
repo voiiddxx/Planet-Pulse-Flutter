@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:planetpulse/View/Screens/profile/profilescreen.dart';
+import 'package:planetpulse/View/Screens/rankings/ranking.dart';
 import 'package:planetpulse/View/Screens/tasks/task.dart';
 import 'package:planetpulse/View/Screens/userhome/userhome.dart';
 import 'package:planetpulse/View/Screens/verify/verification.dart';
@@ -19,8 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
     UserHomeScreen(),
     VerificationScreen(),
     WeeklyScreen(),
-    TaskScreen(),
-    TaskScreen(),
+    RankingScreen(),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
