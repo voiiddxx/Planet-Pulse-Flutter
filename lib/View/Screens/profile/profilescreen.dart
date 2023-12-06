@@ -51,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: Icon(
                                 Icons.edit,
                                 color: Colors.white,
-                                size: 25,
+                                size: 15,
                               ),
                             ),
                           ),
@@ -166,7 +166,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Container(
             height: MediaQuery.of(context).size.height * 0.42,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 47, 47, 47),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(25),

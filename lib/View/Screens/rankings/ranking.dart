@@ -31,7 +31,6 @@ class RankingScreenState extends State<RankingScreen> {
             'x-auth-token': token!
           });
       if (response.statusCode == 200) {
-        print(response.body);
         setState(() {
           rankingData = jsonDecode(response.body);
         });
@@ -45,7 +44,6 @@ class RankingScreenState extends State<RankingScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getRankingData();
   }

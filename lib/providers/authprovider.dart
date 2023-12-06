@@ -99,7 +99,11 @@ class AuthProvider extends ChangeNotifier {
             ques: userData['ques']);
 
         if (context.mounted) {
-          Navigator.pushNamed(context, RoutesNames.homescreen);
+          if (userData['category'] == 'admin') {
+            Navigator.pushNamed(context, RoutesNames.adminbottombar);
+          } else {
+            Navigator.pushNamed(context, RoutesNames.homescreen);
+          }
         }
       } else {
         if (context.mounted) {

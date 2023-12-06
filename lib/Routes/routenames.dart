@@ -5,4 +5,5 @@ class RoutesNames {
   static const String loginScreen = "loginscreen";
   static const String submitscreen = "submitscreen";
   static const String submitweeklytaskscreen = "submiweeklytaskscreen";
+  static const String adminbottombar = "adminbottombar";
 }

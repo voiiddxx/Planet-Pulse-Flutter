@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:planetpulse/Routes/routenames.dart';
+import 'package:planetpulse/View/Screens/Admin/adminbottomnavbar.dart';
 import 'package:planetpulse/View/Screens/Auth/login.dart';
 import 'package:planetpulse/View/Screens/Auth/register.dart';
 import 'package:planetpulse/View/Screens/home/home.dart';
@@ -26,6 +27,10 @@ Route<dynamic> onGenreateSetting(RouteSettings settings) {
     case RoutesNames.loginScreen:
       return MaterialPageRoute(builder: (context) {
         return const LoginScreen();
+      });
+    case RoutesNames.adminbottombar:
+      return MaterialPageRoute(builder: (context) {
+        return const AdminBottombar();
       });
     case RoutesNames.submitscreen:
       return MaterialPageRoute(builder: (context) {
