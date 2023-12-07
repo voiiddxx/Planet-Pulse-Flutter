@@ -1,6 +1,9 @@
+// ignore_for_file: avoid_print, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:planetpulse/models/fetchedmodel.dart';
 import 'package:planetpulse/models/submittaskmodel.dart';
+import 'package:planetpulse/models/taskmode.dart';
 import 'package:planetpulse/providers/authprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,6 +46,36 @@ class TaskService {
         },
       );
       print(response.body);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> AssingTask(
+      {required String task_title,
+      required String task_detail,
+      required String task_guidlines,
+      required String task_image,
+      required String task_level}) async {
+    try {
+      TaskModel taskModel = TaskModel(
+          task_title: task_title,
+          task_detail: task_detail,
+          task_guidlines: task_guidlines,
+          task_image: task_image,
+          task_level: task_level);
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      http.Response response = await http.post(
+          Uri.parse("https://planet-pulse-bphm.onrender.com/assign-task"),
+          body: taskModel.toJson(),
+          headers: <String, String>{
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            'x-auth-token': token!
+          });
     } catch (e) {
       throw e.toString();
     }
