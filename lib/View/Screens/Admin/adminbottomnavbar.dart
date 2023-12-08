@@ -4,6 +4,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:planetpulse/View/Screens/Admin/adminhome/adminhome.dart';
 import 'package:planetpulse/View/Screens/Admin/tasks/assingtask.dart';
 import 'package:planetpulse/View/Screens/userhome/userhome.dart';
+import 'package:planetpulse/View/Screens/verify/approveverify.dart';
+import 'package:planetpulse/View/Screens/verify/verification.dart';
 
 class AdminBottombar extends StatefulWidget {
   const AdminBottombar({super.key});
@@ -16,7 +18,7 @@ class _AdminBottombarState extends State<AdminBottombar> {
   int _selectedIndex = 0;
   static const List<Widget> _pages = <Widget>[
     AdminHomeScreen(),
-    AdminHomeScreen(),
+    ApproveVerificationScreen(),
     AssingTask(),
     AdminHomeScreen(),
   ];
