@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:planetpulse/View/Screens/verify/verification.dart';
+import 'package:planetpulse/core/verify/verifyservice.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +21,7 @@ class ApprovemainScreen extends StatefulWidget {
 }
 
 class _ApprovemainScreenState extends State<ApprovemainScreen> {
+  final VerificationService verificationService = VerificationService();
   dynamic questions;
   Future<void> getuserQuestion() async {
     try {
@@ -42,6 +45,11 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
     } catch (e) {
       throw e.toString();
     }
+  }
+
+  approveVerificationtasks(dynamic id, dynamic postid) async {
+    await verificationService.approveResponse(id: id, postid: postid);
+    setState(() {});
   }
 
   @override
@@ -229,14 +237,19 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                                                                   BorderRadius
                                                                       .circular(
                                                                           10))),
-                                                      onPressed: () {},
+                                                      onPressed: () {
+                                                        approveVerificationtasks(
+                                                            questions['_id'],
+                                                            questions['ques']
+                                                                [index]['_id']);
+                                                      },
                                                       child: CustomFont(
                                                           color: GlobalColor
                                                               .headingcolor,
                                                           text: "Approve",
                                                           weight:
                                                               FontWeight.w400,
-                                                          size: 12))),
+                                                          size: 13))),
                                               SizedBox(
                                                   height: 50,
                                                   width: MediaQuery.of(context)
@@ -253,10 +266,10 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                                                       onPressed: () {},
                                                       child: const CustomFont(
                                                           color: Colors.white,
-                                                          text: "Approve",
+                                                          text: "Decline",
                                                           weight:
                                                               FontWeight.w400,
-                                                          size: 12)))
+                                                          size: 13)))
                                             ],
                                           )
                                         ],

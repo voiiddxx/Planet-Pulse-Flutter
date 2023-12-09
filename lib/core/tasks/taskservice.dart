@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:planetpulse/models/approveweeklyresponse.dart';
 import 'package:planetpulse/models/fetchedmodel.dart';
 import 'package:planetpulse/models/submittaskmodel.dart';
 import 'package:planetpulse/models/taskmode.dart';
@@ -76,6 +77,30 @@ class TaskService {
             "Accept": "application/json",
             'x-auth-token': token!
           });
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> approveWeeklyTasks(
+      {required String userid,
+      required String task_level,
+      required String submitid}) async {
+    try {
+      ApproveWeeklyModel approveWeeklyModel = ApproveWeeklyModel(
+          userid: userid, task_level: task_level, submitid: submitid);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+      http.Response response = await http.post(
+          Uri.parse(
+              "https://planet-pulse-bphm.onrender.com/approve-weekly-task"),
+          body: approveWeeklyModel.toJson(),
+          headers: <String, String>{
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            'x-auth-token': token!
+          });
+      print(response.body);
     } catch (e) {
       throw e.toString();
     }
