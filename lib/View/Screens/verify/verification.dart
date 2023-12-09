@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/View/Screens/verify/submitverify.dart';
 import 'package:planetpulse/core/verify/verifyservice.dart';
 import 'package:planetpulse/global/global.dart';

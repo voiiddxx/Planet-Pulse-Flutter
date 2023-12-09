@@ -7,4 +7,5 @@ class RoutesNames {
   static const String submitweeklytaskscreen = "submiweeklytaskscreen";
   static const String adminbottombar = "adminbottombar";
   static const String approvemainscreen = "approvemainscreen";
+  static const String approveweekly = "approveweekly";
 }

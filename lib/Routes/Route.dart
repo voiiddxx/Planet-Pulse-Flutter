@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/View/Screens/Admin/adminbottomnavbar.dart';
+import 'package:planetpulse/View/Screens/Admin/tasks/approveweekly.dart';
 import 'package:planetpulse/View/Screens/Auth/login.dart';
 import 'package:planetpulse/View/Screens/Auth/register.dart';
 import 'package:planetpulse/View/Screens/home/home.dart';
@@ -48,6 +49,11 @@ Route<dynamic> onGenreateSetting(RouteSettings settings) {
         return ApprovemainScreen(
           ApproveUser: ApproveUser,
         );
+      });
+    case RoutesNames.approveweekly:
+      return MaterialPageRoute(builder: (context) {
+        // ignore: non_constant_identifier_names
+        return const ApproveWeeklyTaskScreen();
       });
 
     default:

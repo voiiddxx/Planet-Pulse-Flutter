@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/providers/authprovider.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
@@ -92,15 +93,20 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 padding: const EdgeInsets.all(15),
                 child: Column(
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          image: DecorationImage(
-                            image: AssetImage("assets/images/changed.jpg"),
-                            fit: BoxFit.cover,
-                          )),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutesNames.approveweekly);
+                      },
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/changed.jpg"),
+                              fit: BoxFit.cover,
+                            )),
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
