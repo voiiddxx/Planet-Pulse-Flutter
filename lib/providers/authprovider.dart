@@ -75,39 +75,43 @@ class AuthProvider extends ChangeNotifier {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       String? token = preferences.getString('x-auth-token');
 
-      http.Response response = await http.get(
-          Uri.parse("https://planet-pulse-bphm.onrender.com/get-curr-user"),
-          headers: <String, String>{
-            "Content-type": "application/json",
-            "Accept": "application/json",
-            'x-auth-token': token!
-          });
-
-      if (response.statusCode == 200) {
-        Map<String, dynamic> userData = jsonDecode(response.body);
-        _user = User(
-            id: userData['_id'],
-            username: userData['username'],
-            userprofile: userData['userprofile'],
-            email: userData['email'],
-            password: userData['password'],
-            pro_planet_level: userData['pro_planet_level'],
-            post: userData['post'],
-            pro_planet_rating: userData['pro_planet_rating'],
-            total_completed_task: userData['total_completed_task'],
-            category: userData['category'],
-            ques: userData['ques']);
-
-        if (context.mounted) {
-          if (userData['category'] == 'admin') {
-            Navigator.pushNamed(context, RoutesNames.adminbottombar);
-          } else {
-            Navigator.pushNamed(context, RoutesNames.homescreen);
-          }
-        }
+      if (token == null) {
+        Navigator.pushNamed(context, RoutesNames.loginScreen);
       } else {
-        if (context.mounted) {
-          Navigator.pushNamed(context, RoutesNames.loginScreen);
+        http.Response response = await http.get(
+            Uri.parse("https://planet-pulse-bphm.onrender.com/get-curr-user"),
+            headers: <String, String>{
+              "Content-type": "application/json",
+              "Accept": "application/json",
+              'x-auth-token': token
+            });
+
+        if (response.statusCode == 200) {
+          Map<String, dynamic> userData = jsonDecode(response.body);
+          _user = User(
+              id: userData['_id'],
+              username: userData['username'],
+              userprofile: userData['userprofile'],
+              email: userData['email'],
+              password: userData['password'],
+              pro_planet_level: userData['pro_planet_level'],
+              post: userData['post'],
+              pro_planet_rating: userData['pro_planet_rating'],
+              total_completed_task: userData['total_completed_task'],
+              category: userData['category'],
+              ques: userData['ques']);
+
+          if (context.mounted) {
+            if (userData['category'] == 'admin') {
+              Navigator.pushNamed(context, RoutesNames.adminbottombar);
+            } else {
+              Navigator.pushNamed(context, RoutesNames.homescreen);
+            }
+          }
+        } else {
+          if (context.mounted) {
+            Navigator.pushNamed(context, RoutesNames.loginScreen);
+          }
         }
       }
     } catch (e) {

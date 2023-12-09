@@ -2,24 +2,24 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class ApplyVerifyModal {
-  final String verifytask;
-  final String verifyimage;
+  final String question;
+  final String quesImage;
   ApplyVerifyModal({
-    required this.verifytask,
-    required this.verifyimage,
+    required this.question,
+    required this.quesImage,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'verifytask': verifytask,
-      'verifyimage': verifyimage,
+      'question': question,
+      'quesImage': quesImage,
     };
   }
 
   factory ApplyVerifyModal.fromMap(Map<String, dynamic> map) {
     return ApplyVerifyModal(
-      verifytask: map['verifytask'] as String,
-      verifyimage: map['verifyimage'] as String,
+      question: map['question'] as String,
+      quesImage: map['quesImage'] as String,
     );
   }
 

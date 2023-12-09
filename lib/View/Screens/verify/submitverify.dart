@@ -30,8 +30,8 @@ class _SubmitSCreenState extends State<SubmitSCreen> {
       showSnackBar(context, response.secureUrl, Colors.yellow);
       // ignore: use_build_context_synchronously
       await verificationService.submitVerification(
-          verifytask: widget.submitTask,
-          verifyimage: response.secureUrl,
+          question: widget.submitTask,
+          quesImage: response.secureUrl,
           context: context);
     } catch (e) {
       if (context.mounted) {

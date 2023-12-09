@@ -6,15 +6,15 @@ import 'package:http/http.dart' as http;
 
 class VerificationService {
   Future<void> submitVerification(
-      {required String verifytask,
-      required String verifyimage,
+      {required String question,
+      required String quesImage,
       required BuildContext context}) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
       ApplyVerifyModal applyVerifyModal =
-          ApplyVerifyModal(verifytask: verifytask, verifyimage: verifyimage);
-      if (verifyimage != '' && verifytask != '') {
+          ApplyVerifyModal(question: question, quesImage: quesImage);
+      if (question != '' && quesImage != '') {
         http.Response response = await http.post(
             Uri.parse("https://planet-pulse-bphm.onrender.com/post-ques"),
             body: applyVerifyModal.toJson(),

@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/providers/authprovider.dart';
-import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:http/http.dart' as http;
 import 'package:planetpulse/utils/res/snackbar.dart';
@@ -55,26 +54,34 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        backgroundColor: const Color.fromARGB(31, 255, 255, 255),
         elevation: 0,
         leading: const Icon(
           Icons.all_inclusive_rounded,
-          color: Colors.white,
+          color: Colors.black,
           size: 20,
         ),
         centerTitle: true,
         title: const CustomFont(
-            color: Colors.white,
-            text: "Assing Task",
+            color: Colors.black,
+            text: "Pro Planet Verification",
             weight: FontWeight.w400,
             size: 13),
-        actions: const [
-          Icon(
-            Icons.logout_sharp,
-            color: Colors.white,
-            size: 24,
+        actions: [
+          InkWell(
+            onTap: () async {
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              await prefs.remove('x-auth-token');
+              Navigator.pushReplacementNamed(context, RoutesNames.loginScreen);
+            },
+            child: Icon(
+              Icons.logout_sharp,
+              color: Colors.black,
+              size: 24,
+            ),
           ),
           Icon(
             Icons.logout_sharp,
@@ -276,7 +283,12 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(13))),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.pushNamed(context,
+                                                  RoutesNames.approvemainscreen,
+                                                  arguments:
+                                                      getAppliedUser[index]);
+                                            },
                                             child: const CustomFont(
                                                 color: Colors.white,
                                                 text: "Approve Responses",

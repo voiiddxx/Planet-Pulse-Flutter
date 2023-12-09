@@ -7,8 +7,8 @@ import 'package:planetpulse/View/Screens/Auth/login.dart';
 import 'package:planetpulse/View/Screens/Auth/register.dart';
 import 'package:planetpulse/View/Screens/home/home.dart';
 import 'package:planetpulse/View/Screens/start/splash.dart';
+import 'package:planetpulse/View/Screens/verify/approvemain.dart';
 import 'package:planetpulse/View/Screens/verify/submitverify.dart';
-import 'package:planetpulse/View/Screens/weekly/submittask.dart';
 
 Route<dynamic> onGenreateSetting(RouteSettings settings) {
   switch (settings.name) {
@@ -39,6 +39,14 @@ Route<dynamic> onGenreateSetting(RouteSettings settings) {
         return SubmitSCreen(
           image: image,
           submitTask: submitTask,
+        );
+      });
+    case RoutesNames.approvemainscreen:
+      return MaterialPageRoute(builder: (context) {
+        // ignore: non_constant_identifier_names
+        var ApproveUser = settings.arguments as dynamic;
+        return ApprovemainScreen(
+          ApproveUser: ApproveUser,
         );
       });
 

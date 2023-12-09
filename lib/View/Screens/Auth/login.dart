@@ -35,7 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 HeadingText(
-                    color: GlobalColor.headingcolor, text: "Create Account"),
+                    color: GlobalColor.headingcolor,
+                    text: "Log in into your account"),
                 const SizedBox(
                   height: 5,
                 ),
@@ -92,8 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 10),
                 InkWell(
-                  onTap: () =>
-                      {Navigator.pushNamed(context, RoutesNames.homescreen)},
+                  onTap: () => {
+                    Navigator.pushNamed(context, RoutesNames.registerScreen)
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
