@@ -8,4 +8,5 @@ class RoutesNames {
   static const String adminbottombar = "adminbottombar";
   static const String approvemainscreen = "approvemainscreen";
   static const String approveweekly = "approveweekly";
+  static const String commentScreen = "commentscreen";
 }

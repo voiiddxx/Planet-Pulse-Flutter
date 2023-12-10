@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:planetpulse/Routes/routenames.dart';
+import 'package:planetpulse/View/Screens/comments/commentscreen.dart';
 import 'package:planetpulse/core/impression/impressionservice.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:shimmer/shimmer.dart';
@@ -207,12 +209,24 @@ class _PostCardState extends State<PostCard> {
                   const SizedBox(
                     width: 5,
                   ),
-                  Icon(
-                    Icons.mark_chat_unread_rounded,
-                    color: widget.postlikes == "null"
-                        ? Colors.transparent
-                        : const Color.fromARGB(255, 61, 61, 61),
-                  ),
+                  InkWell(
+                    onTap: () {
+                      showBottomSheet(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(50))),
+                        elevation: 10,
+                        context: context,
+                        builder: (context) => CommentScreen(),
+                      );
+                    },
+                    child: Icon(
+                      Icons.mark_chat_unread_rounded,
+                      color: widget.postlikes == "null"
+                          ? Colors.transparent
+                          : const Color.fromARGB(255, 61, 61, 61),
+                    ),
+                  )
                 ],
               ),
               const SizedBox(
