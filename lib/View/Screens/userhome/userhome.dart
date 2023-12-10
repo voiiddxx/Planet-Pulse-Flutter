@@ -212,6 +212,8 @@ class UserHomeScreenState extends State<UserHomeScreen> {
                   itemCount: posts == null ? 2 : posts?.length,
                   itemBuilder: (context, index) {
                     return PostCard(
+                      postid:
+                          posts == null ? "null" : posts![index].id.toString(),
                       postimage: posts == null
                           ? "null"
                           : posts![index].postimage.toString(),

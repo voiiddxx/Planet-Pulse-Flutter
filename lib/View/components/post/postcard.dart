@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:planetpulse/core/impression/impressionservice.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PostCard extends StatefulWidget {
+  final String postid;
   final String username;
   final String userimage;
   final String postimage;
@@ -17,13 +19,21 @@ class PostCard extends StatefulWidget {
       required this.postimage,
       required this.postcaption,
       required this.postlikes,
-      required this.postcomment});
+      required this.postcomment,
+      required this.postid});
 
   @override
   State<PostCard> createState() => _PostCardState();
 }
 
 class _PostCardState extends State<PostCard> {
+  final ImpressionService impressionService = ImpressionService();
+
+  void likepost(postid) async {
+    await impressionService.LikeThePost(postid: postid);
+  }
+
+  bool postLiked = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -169,13 +179,32 @@ class _PostCardState extends State<PostCard> {
               ),
               Row(
                 children: [
-                  Icon(
-                    Icons.favorite_border,
-                    color: widget.postlikes == "null"
-                        ? Colors.transparent
-                        : Colors.red,
+                  InkWell(
+                    onTap: () {
+                      likepost(widget.postid);
+                      setState(() {
+                        if (postLiked == true) {
+                          postLiked = false;
+                        } else {
+                          postLiked = true;
+                        }
+                      });
+                    },
+                    child: postLiked == true
+                        ? Icon(
+                            Icons.favorite_rounded,
+                            color: widget.postlikes == "null"
+                                ? Colors.transparent
+                                : Colors.red,
+                          )
+                        : Icon(
+                            Icons.favorite_border,
+                            color: widget.postlikes == "null"
+                                ? Colors.transparent
+                                : Colors.red,
+                          ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Icon(
