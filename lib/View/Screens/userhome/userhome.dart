@@ -209,15 +209,24 @@ class UserHomeScreenState extends State<UserHomeScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: posts?.length,
+                  itemCount: posts == null ? 2 : posts?.length,
                   itemBuilder: (context, index) {
                     return PostCard(
-                      postimage: posts![index].postimage.toString(),
-                      userimage: posts![index].user.userprofile.toString(),
-                      username: posts![index].user.username,
-                      postcaption: posts![index].title,
-                      postlikes: posts![index].likes.length.toString(),
-                      postcomment: posts![index].comment.length.toString(),
+                      postimage: posts == null
+                          ? "null"
+                          : posts![index].postimage.toString(),
+                      userimage: posts == null
+                          ? "null"
+                          : posts![index].user.userprofile.toString(),
+                      username:
+                          posts == null ? "null" : posts![index].user.username,
+                      postcaption: posts == null ? "null" : posts![index].title,
+                      postlikes: posts == null
+                          ? "null"
+                          : posts![index].likes.length.toString(),
+                      postcomment: posts == null
+                          ? "null"
+                          : posts![index].comment.length.toString(),
                     );
                   },
                 ),

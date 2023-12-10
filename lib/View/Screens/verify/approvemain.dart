@@ -1,13 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:planetpulse/View/Screens/verify/verification.dart';
 import 'package:planetpulse/core/verify/verifyservice.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ApprovemainScreen extends StatefulWidget {
   final dynamic ApproveUser;
@@ -40,7 +39,6 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
         setState(() {
           questions = jsonDecode(response.body);
         });
-        // print(questions['ques'][0]['question']);
       }
     } catch (e) {
       throw e.toString();
@@ -76,31 +74,68 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        image: DecorationImage(
-                            image: NetworkImage(questions['userprofile']),
-                            fit: BoxFit.cover)),
-                  ),
+                  questions == null
+                      ? Shimmer.fromColors(
+                          baseColor: const Color.fromARGB(215, 34, 34, 34),
+                          highlightColor: Colors.black,
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.black,
+                            ),
+                          ))
+                      : Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              image: DecorationImage(
+                                  image: NetworkImage(questions['userprofile']),
+                                  fit: BoxFit.cover)),
+                        ),
                   const SizedBox(
                     height: 10,
                   ),
-                  CustomFont(
-                      color: Colors.white,
-                      text: questions['username'],
-                      weight: FontWeight.w600,
-                      size: 25),
+                  questions == null
+                      ? Shimmer.fromColors(
+                          baseColor: const Color.fromARGB(215, 34, 34, 34),
+                          highlightColor: Colors.black,
+                          child: Container(
+                            height: 20,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
+                      : CustomFont(
+                          color: Colors.white,
+                          text: questions['username'],
+                          weight: FontWeight.w600,
+                          size: 25),
                   const SizedBox(
                     height: 10,
                   ),
-                  CustomFont(
-                      color: const Color.fromARGB(255, 143, 143, 143),
-                      text: questions['email'],
-                      weight: FontWeight.w600,
-                      size: 15),
+                  questions == null
+                      ? Shimmer.fromColors(
+                          baseColor: const Color.fromARGB(215, 34, 34, 34),
+                          highlightColor: Colors.black,
+                          child: Container(
+                            height: 15,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.black,
+                            ),
+                          ))
+                      : CustomFont(
+                          color: const Color.fromARGB(255, 143, 143, 143),
+                          text: questions['email'],
+                          weight: FontWeight.w600,
+                          size: 15),
                 ],
               ),
             ),
@@ -129,7 +164,8 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                     ),
                     Expanded(
                       child: ListView.builder(
-                        itemCount: questions['ques'].length,
+                        itemCount:
+                            questions == null ? 2 : questions['ques'].length,
                         itemBuilder: (context, index) {
                           return Container(
                             margin: const EdgeInsets.only(bottom: 5),
@@ -145,18 +181,39 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.3,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                questions['ques'][index]
-                                                    ['quesImage']),
-                                            fit: BoxFit.cover),
-                                        borderRadius: BorderRadius.circular(5)),
-                                  ),
+                                  questions == null
+                                      ? Shimmer.fromColors(
+                                          baseColor: const Color.fromARGB(
+                                              215, 34, 34, 34),
+                                          highlightColor: Colors.black,
+                                          child: Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.3,
+                                            width: double.infinity,
+                                            decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(10),
+                                              ),
+                                              color: Colors.black,
+                                            ),
+                                          ))
+                                      : Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.3,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      questions['ques'][index]
+                                                          ['quesImage']),
+                                                  fit: BoxFit.cover),
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                        ),
                                   const SizedBox(
                                     height: 20,
                                   ),
@@ -174,47 +231,97 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                                         children: [
                                           Row(
                                             children: [
-                                              const Icon(
+                                              Icon(
                                                 Icons.animation_sharp,
-                                                color: Colors.yellow,
+                                                color: questions == null
+                                                    ? Colors.transparent
+                                                    : Colors.yellow,
                                                 size: 15,
                                               ),
                                               const SizedBox(
                                                 width: 10,
                                               ),
-                                              CustomFont(
-                                                  color: const Color.fromARGB(
-                                                      255, 255, 255, 255),
-                                                  text: questions['ques'][index]
-                                                      ['question'],
-                                                  weight: FontWeight.w600,
-                                                  size: 15),
+                                              questions == null
+                                                  ? Shimmer.fromColors(
+                                                      baseColor:
+                                                          const Color.fromARGB(
+                                                              215, 34, 34, 34),
+                                                      highlightColor:
+                                                          Colors.black,
+                                                      child: Container(
+                                                        height: 20,
+                                                        width: 200,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                          color: Colors.black,
+                                                        ),
+                                                      ))
+                                                  : CustomFont(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              255,
+                                                              255,
+                                                              255),
+                                                      text: questions['ques']
+                                                          [index]['question'],
+                                                      weight: FontWeight.w600,
+                                                      size: 15),
                                             ],
                                           ),
                                           const SizedBox(
                                             height: 5,
                                           ),
-                                          const Row(
+                                          Row(
                                             children: [
                                               Icon(
                                                 Icons.location_on_outlined,
-                                                color: Color.fromARGB(
-                                                    255, 59, 216, 255),
+                                                color: questions == null
+                                                    ? Colors.transparent
+                                                    : Color.fromARGB(
+                                                        255, 59, 216, 255),
                                                 size: 15,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 10,
                                               ),
-                                              SizedBox(
-                                                width: 250,
-                                                child: CustomFont(
-                                                    color: Color.fromARGB(
-                                                        255, 219, 219, 219),
-                                                    text:
-                                                        "Baba Farid college of engineering and technology",
-                                                    weight: FontWeight.w300,
-                                                    size: 13),
-                                              ),
+                                              questions == null
+                                                  ? Shimmer.fromColors(
+                                                      baseColor:
+                                                          const Color.fromARGB(
+                                                              215, 34, 34, 34),
+                                                      highlightColor:
+                                                          Colors.black,
+                                                      child: Container(
+                                                        height: 20,
+                                                        width: 200,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                          color: Colors.black,
+                                                        ),
+                                                      ))
+                                                  : const SizedBox(
+                                                      width: 250,
+                                                      child: CustomFont(
+                                                          color:
+                                                              Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      219,
+                                                                      219,
+                                                                      219),
+                                                          text:
+                                                              "Baba Farid college of engineering and technology",
+                                                          weight:
+                                                              FontWeight.w300,
+                                                          size: 13),
+                                                    ),
                                             ],
                                           ),
                                           const SizedBox(
@@ -224,52 +331,105 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              SizedBox(
-                                                  height: 50,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.37,
-                                                  child: ElevatedButton(
-                                                      style: ElevatedButton.styleFrom(
-                                                          shape: ContinuousRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
+                                              questions == null
+                                                  ? Shimmer.fromColors(
+                                                      baseColor:
+                                                          const Color.fromARGB(
+                                                              215, 34, 34, 34),
+                                                      highlightColor:
+                                                          Colors.black,
+                                                      child: Container(
+                                                        height: 50,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.37,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                          color: Colors.black,
+                                                        ),
+                                                      ))
+                                                  : SizedBox(
+                                                      height: 50,
+                                                      width: MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.37,
+                                                      child: ElevatedButton(
+                                                          style: ElevatedButton.styleFrom(
+                                                              shape: ContinuousRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
                                                                           10))),
-                                                      onPressed: () {
-                                                        approveVerificationtasks(
-                                                            questions['_id'],
-                                                            questions['ques']
-                                                                [index]['_id']);
-                                                      },
-                                                      child: CustomFont(
-                                                          color: GlobalColor
-                                                              .headingcolor,
-                                                          text: "Approve",
-                                                          weight:
-                                                              FontWeight.w400,
-                                                          size: 13))),
-                                              SizedBox(
-                                                  height: 50,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.37,
-                                                  child: OutlinedButton(
-                                                      style: OutlinedButton.styleFrom(
-                                                          shape: ContinuousRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                      onPressed: () {},
-                                                      child: const CustomFont(
-                                                          color: Colors.white,
-                                                          text: "Decline",
-                                                          weight:
-                                                              FontWeight.w400,
-                                                          size: 13)))
+                                                          onPressed: () {
+                                                            approveVerificationtasks(
+                                                                questions[
+                                                                    '_id'],
+                                                                questions['ques']
+                                                                        [index]
+                                                                    ['_id']);
+                                                          },
+                                                          child: CustomFont(
+                                                              color: GlobalColor
+                                                                  .headingcolor,
+                                                              text: "Approve",
+                                                              weight:
+                                                                  FontWeight.w400,
+                                                              size: 13))),
+                                              questions == null
+                                                  ? Shimmer.fromColors(
+                                                      baseColor:
+                                                          const Color.fromARGB(
+                                                              215, 34, 34, 34),
+                                                      highlightColor:
+                                                          Colors.black,
+                                                      child: Container(
+                                                        height: 50,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.37,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                          color: Colors.black,
+                                                        ),
+                                                      ))
+                                                  : SizedBox(
+                                                      height: 50,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.37,
+                                                      child: OutlinedButton(
+                                                        style: OutlinedButton
+                                                            .styleFrom(
+                                                          shape:
+                                                              ContinuousRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                              10,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        onPressed: () {},
+                                                        child: const CustomFont(
+                                                            color: Colors.white,
+                                                            text: "Decline",
+                                                            weight:
+                                                                FontWeight.w400,
+                                                            size: 13),
+                                                      ),
+                                                    ),
                                             ],
                                           )
                                         ],

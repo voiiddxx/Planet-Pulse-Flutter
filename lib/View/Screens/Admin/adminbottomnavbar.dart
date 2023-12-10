@@ -3,9 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:planetpulse/View/Screens/Admin/adminhome/adminhome.dart';
 import 'package:planetpulse/View/Screens/Admin/tasks/assingtask.dart';
-import 'package:planetpulse/View/Screens/userhome/userhome.dart';
+import 'package:planetpulse/View/Screens/rankings/ranking.dart';
 import 'package:planetpulse/View/Screens/verify/approveverify.dart';
-import 'package:planetpulse/View/Screens/verify/verification.dart';
 
 class AdminBottombar extends StatefulWidget {
   const AdminBottombar({super.key});
@@ -21,6 +20,7 @@ class _AdminBottombarState extends State<AdminBottombar> {
     ApproveVerificationScreen(),
     AssingTask(),
     AdminHomeScreen(),
+    RankingScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _AdminBottombarState extends State<AdminBottombar> {
           ),
           GButton(
             icon: Icons.person,
-            text: "Profile",
+            text: "Leaderboard",
           ),
         ],
         selectedIndex: _selectedIndex,
