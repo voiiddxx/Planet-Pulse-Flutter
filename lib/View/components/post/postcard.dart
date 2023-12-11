@@ -12,7 +12,7 @@ class PostCard extends StatefulWidget {
   final String postimage;
   final String postcaption;
   final String postlikes;
-  final String postcomment;
+  final dynamic postcomment;
 
   const PostCard(
       {super.key,
@@ -38,6 +38,7 @@ class _PostCardState extends State<PostCard> {
   bool postLiked = false;
   @override
   Widget build(BuildContext context) {
+    print(widget.postcomment);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Container(
@@ -217,7 +218,9 @@ class _PostCardState extends State<PostCard> {
                                 top: Radius.circular(50))),
                         elevation: 10,
                         context: context,
-                        builder: (context) => CommentScreen(),
+                        builder: (context) => CommentScreen(
+                          postid: widget.postid,
+                        ),
                       );
                     },
                     child: Icon(
@@ -270,7 +273,7 @@ class _PostCardState extends State<PostCard> {
                         )
                       : CustomFont(
                           color: const Color.fromARGB(255, 117, 117, 117),
-                          text: " ${widget.postcomment} Comments",
+                          text: " ${widget.postcomment.length} Comments",
                           weight: FontWeight.w300,
                           size: 12)
                 ],

@@ -47,6 +47,14 @@ class UserHomeScreenState extends State<UserHomeScreen> {
           ),
           actions: const [
             Icon(
+              Icons.add_a_photo_sharp,
+              color: Colors.white,
+              size: 24,
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+            Icon(
               Icons.logout_sharp,
               color: Colors.white,
               size: 24,
@@ -226,9 +234,8 @@ class UserHomeScreenState extends State<UserHomeScreen> {
                       postlikes: posts == null
                           ? "null"
                           : posts![index].likes.length.toString(),
-                      postcomment: posts == null
-                          ? "null"
-                          : posts![index].comment.length.toString(),
+                      postcomment:
+                          posts == null ? "null" : posts![index].comment,
                     );
                   },
                 ),

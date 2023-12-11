@@ -58,8 +58,11 @@ Route<dynamic> onGenreateSetting(RouteSettings settings) {
       });
     case RoutesNames.commentScreen:
       return MaterialPageRoute(builder: (context) {
+        var postid = settings.arguments as String;
         // ignore: non_constant_identifier_names
-        return const CommentScreen();
+        return CommentScreen(
+          postid: postid,
+        );
       });
 
     default:

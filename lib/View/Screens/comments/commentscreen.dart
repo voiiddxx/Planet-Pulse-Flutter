@@ -1,10 +1,73 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
 
-class CommentScreen extends StatelessWidget {
-  const CommentScreen({super.key});
+class CommentScreen extends StatefulWidget {
+  final String postid;
+  const CommentScreen({super.key, required this.postid});
+
+  @override
+  State<CommentScreen> createState() => _CommentScreenState();
+}
+
+class _CommentScreenState extends State<CommentScreen> {
+  dynamic allcomments;
+  final TextEditingController commentcontroller = TextEditingController();
+  void getPostComment() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+      http.Response response = await http.get(
+        Uri.parse(
+            "https://planet-pulse-bphm.onrender.com/get-post-comment?postid=${widget.postid}"),
+        headers: <String, String>{
+          "Content-type": "application/json",
+          "Accept": "application/json",
+          'x-auth-token': token!
+        },
+      );
+
+      setState(() {
+        allcomments = jsonDecode(response.body);
+      });
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  void postcomment(
+      {required String commentdetail, required String postid}) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+
+      http.Response response = await http.post(
+          Uri.parse(
+              "https://planet-pulse-bphm.onrender.com/post-comment-user-post"),
+          body: jsonEncode({'commentdetail': commentdetail, 'postid': postid}),
+          headers: <String, String>{
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            'x-auth-token': token!
+          });
+
+      setState(() {});
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPostComment();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +116,7 @@ class CommentScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 5,
+              itemCount: allcomments == null ? 5 : allcomments.length,
               itemBuilder: (context, index) {
                 return Container(
                   margin:
@@ -63,17 +126,29 @@ class CommentScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.yellow,
-                            image: const DecorationImage(
-                                image: NetworkImage(
-                                    "https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=1899&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-                                fit: BoxFit.cover)),
-                      ),
+                      allcomments == null
+                          ? Shimmer.fromColors(
+                              baseColor: Color.fromARGB(255, 217, 217, 217),
+                              highlightColor: Colors.white,
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.white),
+                              ))
+                          : Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.yellow,
+                                  image: DecorationImage(
+                                      image: NetworkImage(allcomments[index]
+                                              ['user']['userprofile']
+                                          .toString()),
+                                      fit: BoxFit.cover)),
+                            ),
                       const SizedBox(
                         width: 15,
                       ),
@@ -81,23 +156,44 @@ class CommentScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomFont(
-                              color: GlobalColor.headingcolor,
-                              text: "void,tsx",
-                              weight: FontWeight.w500,
-                              size: 15),
+                          allcomments == null
+                              ? Shimmer.fromColors(
+                                  baseColor: Color.fromARGB(255, 217, 217, 217),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 10,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.white),
+                                  ))
+                              : CustomFont(
+                                  color: GlobalColor.headingcolor,
+                                  text: allcomments[index]['user']['username'],
+                                  weight: FontWeight.w500,
+                                  size: 15),
                           const SizedBox(
                             height: 3,
                           ),
-                          SizedBox(
-                            width: 300,
-                            child: CustomFont(
-                                color: GlobalColor.headingcolor,
-                                text:
-                                    "contributing in clean india and green india mission , so happy and looking forward to do more this type of contribution",
-                                weight: FontWeight.w300,
-                                size: 12),
-                          ),
+                          allcomments == null
+                              ? Shimmer.fromColors(
+                                  baseColor: Color.fromARGB(255, 217, 217, 217),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 5,
+                                    width: 250,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white),
+                                  ))
+                              : SizedBox(
+                                  width: 300,
+                                  child: CustomFont(
+                                      color: GlobalColor.headingcolor,
+                                      text: allcomments[index]['commentdetail'],
+                                      weight: FontWeight.w300,
+                                      size: 12),
+                                ),
                           const SizedBox(
                             height: 15,
                           ),
@@ -118,7 +214,7 @@ class CommentScreen extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
             height: 50,
             width: MediaQuery.of(context).size.width * 1,
             child: Row(
@@ -128,10 +224,11 @@ class CommentScreen extends StatelessWidget {
                   height: 60,
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
+                    controller: commentcontroller,
                     decoration: InputDecoration(
                         hintText: "Write your comment",
                         hintStyle: GoogleFonts.manrope(
-                            color: Color.fromARGB(255, 136, 136, 136),
+                            color: const Color.fromARGB(255, 136, 136, 136),
                             fontSize: 12),
                         filled: true,
                         fillColor: const Color.fromARGB(255, 219, 219, 219),
@@ -143,16 +240,23 @@ class CommentScreen extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
-                  height: 60,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    color: GlobalColor.primarycolor,
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Icon(
-                    Icons.send,
-                    color: Colors.white,
+                InkWell(
+                  onTap: () {
+                    postcomment(
+                        commentdetail: commentcontroller.text.trim(),
+                        postid: widget.postid);
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: GlobalColor.primarycolor,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: const Icon(
+                      Icons.send,
+                      color: Colors.white,
+                    ),
                   ),
                 )
               ],
