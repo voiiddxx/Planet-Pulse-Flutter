@@ -205,10 +205,11 @@ class _PostCardState extends State<PostCard> {
                             color: widget.postlikes == "null"
                                 ? Colors.transparent
                                 : Colors.red,
+                            size: 25,
                           ),
                   ),
                   const SizedBox(
-                    width: 5,
+                    width: 15,
                   ),
                   InkWell(
                     onTap: () {
@@ -228,6 +229,7 @@ class _PostCardState extends State<PostCard> {
                       color: widget.postlikes == "null"
                           ? Colors.transparent
                           : const Color.fromARGB(255, 61, 61, 61),
+                      size: 25,
                     ),
                   )
                 ],

@@ -8,6 +8,7 @@ import 'package:planetpulse/View/Screens/Auth/login.dart';
 import 'package:planetpulse/View/Screens/Auth/register.dart';
 import 'package:planetpulse/View/Screens/comments/commentscreen.dart';
 import 'package:planetpulse/View/Screens/home/home.dart';
+import 'package:planetpulse/View/Screens/profile/profilescreen.dart';
 import 'package:planetpulse/View/Screens/start/splash.dart';
 import 'package:planetpulse/View/Screens/verify/approvemain.dart';
 import 'package:planetpulse/View/Screens/verify/submitverify.dart';
@@ -33,6 +34,10 @@ Route<dynamic> onGenreateSetting(RouteSettings settings) {
     case RoutesNames.adminbottombar:
       return MaterialPageRoute(builder: (context) {
         return const AdminBottombar();
+      });
+    case RoutesNames.profilescreen:
+      return MaterialPageRoute(builder: (context) {
+        return const ProfileScreen();
       });
     case RoutesNames.submitscreen:
       return MaterialPageRoute(builder: (context) {

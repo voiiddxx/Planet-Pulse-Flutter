@@ -9,4 +9,5 @@ class RoutesNames {
   static const String approvemainscreen = "approvemainscreen";
   static const String approveweekly = "approveweekly";
   static const String commentScreen = "commentscreen";
+  static const String profilescreen = "profilescreen";
 }

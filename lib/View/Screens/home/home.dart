@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         tabs: const [
           GButton(
             icon: Icons.home,
-            text: "",
+            text: "Home",
           ),
           GButton(
             icon: Icons.verified,

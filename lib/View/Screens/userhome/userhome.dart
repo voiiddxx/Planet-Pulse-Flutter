@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/View/components/post/postcard.dart';
 import 'package:planetpulse/core/post/postservice.dart';
 import 'package:planetpulse/models/fetchedmodel.dart';
@@ -45,21 +46,31 @@ class UserHomeScreenState extends State<UserHomeScreen> {
             color: Colors.white,
             size: 20,
           ),
-          actions: const [
-            Icon(
-              Icons.add_a_photo_sharp,
-              color: Colors.white,
-              size: 24,
+          actions: [
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesNames.profilescreen);
+              },
+              child: Container(
+                height: 35,
+                width: 35,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50),
+                    image: DecorationImage(
+                        image: NetworkImage(currentuser.userprofile),
+                        fit: BoxFit.cover)),
+              ),
             ),
             const SizedBox(
               width: 15,
             ),
-            Icon(
+            const Icon(
               Icons.logout_sharp,
               color: Colors.white,
-              size: 24,
+              size: 28,
             ),
-            Icon(
+            const Icon(
               Icons.logout_sharp,
               color: Color.fromARGB(0, 255, 255, 255),
               size: 20,
