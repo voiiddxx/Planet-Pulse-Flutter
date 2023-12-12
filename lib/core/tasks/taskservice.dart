@@ -6,6 +6,7 @@ import 'package:planetpulse/models/fetchedmodel.dart';
 import 'package:planetpulse/models/submittaskmodel.dart';
 import 'package:planetpulse/models/taskmode.dart';
 import 'package:planetpulse/providers/authprovider.dart';
+import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -52,12 +53,13 @@ class TaskService {
     }
   }
 
-  Future<void> AssingTask(
+  Future<dynamic> AssingTask(
       {required String task_title,
       required String task_detail,
       required String task_guidlines,
       required String task_image,
-      required String task_level}) async {
+      required String task_level,
+      required BuildContext context}) async {
     try {
       TaskModel taskModel = TaskModel(
           task_title: task_title,
@@ -77,15 +79,20 @@ class TaskService {
             "Accept": "application/json",
             'x-auth-token': token!
           });
+      if (response.statusCode != 200) {
+        showSnackBar(context, response.body, Colors.red);
+      }
+      return response.statusCode;
     } catch (e) {
       throw e.toString();
     }
   }
 
-  Future<void> approveWeeklyTasks(
+  Future<dynamic> approveWeeklyTasks(
       {required String userid,
       required String task_level,
-      required String submitid}) async {
+      required String submitid,
+      required BuildContext context}) async {
     try {
       ApproveWeeklyModel approveWeeklyModel = ApproveWeeklyModel(
           userid: userid, task_level: task_level, submitid: submitid);
@@ -100,7 +107,10 @@ class TaskService {
             "Accept": "application/json",
             'x-auth-token': token!
           });
-      print(response.body);
+      if (response.statusCode != 200) {
+        showSnackBar(context, response.body, Colors.black);
+      }
+      return response.statusCode;
     } catch (e) {
       throw e.toString();
     }

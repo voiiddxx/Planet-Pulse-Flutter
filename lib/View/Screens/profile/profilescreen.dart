@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/providers/authprovider.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -334,38 +336,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 32, 32, 32),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: const Center(
-                        child: Icon(
-                          Icons.login_rounded,
-                          color: Colors.white,
+                InkWell(
+                  onTap: () async {
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.remove('x-auth-token');
+                    Navigator.pushNamed(context, RoutesNames.loginScreen);
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 32, 32, 32),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: const Center(
+                          child: Icon(
+                            Icons.login_rounded,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    CustomFont(
-                        color: GlobalColor.subtitlecolor,
-                        text: "Log Out",
-                        weight: FontWeight.w400,
-                        size: 16),
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Icon(
-                      Icons.arrow_right,
-                      color: GlobalColor.headingcolor,
-                      size: 30,
-                    )
-                  ],
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      CustomFont(
+                          color: GlobalColor.subtitlecolor,
+                          text: "Log Out",
+                          weight: FontWeight.w400,
+                          size: 16),
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Icon(
+                        Icons.arrow_right,
+                        color: GlobalColor.headingcolor,
+                        size: 30,
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 15,

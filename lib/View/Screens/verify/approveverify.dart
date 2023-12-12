@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/providers/authprovider.dart';
+import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:http/http.dart' as http;
 import 'package:planetpulse/utils/res/snackbar.dart';
@@ -56,16 +57,16 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(31, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 35, 35, 35),
         elevation: 0,
         leading: const Icon(
           Icons.all_inclusive_rounded,
-          color: Colors.black,
-          size: 10,
+          color: Colors.white,
+          size: 20,
         ),
         centerTitle: true,
         title: const CustomFont(
-            color: Colors.black,
+            color: Colors.white,
             text: "Pro Planet Verification",
             weight: FontWeight.w400,
             size: 13),
@@ -80,7 +81,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
             },
             child: const Icon(
               Icons.logout_sharp,
-              color: Colors.black,
+              color: Colors.white,
               size: 24,
             ),
           ),
@@ -197,7 +198,8 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                   image: NetworkImage(
-                                                      user.userprofile),
+                                                      getAppliedUser[index]
+                                                          ['userprofile']),
                                                   fit: BoxFit.cover),
                                               color: Colors.white,
                                               borderRadius:

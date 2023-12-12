@@ -6,6 +6,7 @@ import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/core/tasks/taskservice.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
@@ -24,6 +25,8 @@ class _AssingTaskState extends State<AssingTask> {
   final TextEditingController taskguidlines = TextEditingController();
   final TaskService taskService = TaskService();
   File? taskimage;
+
+  bool isLoadiing = false;
   selectImage() async {
     try {
       final result = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -40,6 +43,9 @@ class _AssingTaskState extends State<AssingTask> {
 
   void postData() async {
     try {
+      setState(() {
+        isLoadiing = true;
+      });
       final cloudinary = CloudinaryPublic('dwkmxsthr', 'pdrcp1le');
       CloudinaryResponse response = await cloudinary.uploadFile(
         CloudinaryFile.fromFile(taskimage!.path),
@@ -48,12 +54,20 @@ class _AssingTaskState extends State<AssingTask> {
       showSnackBar(context, response.secureUrl, Colors.yellow);
 
       // ignore: use_build_context_synchronously
-      await taskService.AssingTask(
+      dynamic data = await taskService.AssingTask(
           task_title: tasktitle.text.trim(),
           task_detail: taskdetail.text,
           task_guidlines: taskguidlines.text,
           task_image: response.secureUrl,
-          task_level: tasklevel);
+          task_level: tasklevel,
+          context: context);
+      setState(() {
+        isLoadiing = false;
+      });
+      if (data == 200) {
+        showSnackBar(context, "Task Assigned", Colors.red);
+        Navigator.pushNamed(context, RoutesNames.adminbottombar);
+      }
       // ignore: use_build_context_synchronously
     } catch (e) {
       if (context.mounted) {
@@ -388,17 +402,23 @@ class _AssingTaskState extends State<AssingTask> {
                   width: double.infinity,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: GlobalColor.headingcolor,
+                          backgroundColor: GlobalColor.primarycolor,
                           shape: ContinuousRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       onPressed: () {
                         postData();
                       },
-                      child: const CustomFont(
-                          color: Colors.white,
-                          text: "Assing Task",
-                          weight: FontWeight.w700,
-                          size: 15)),
+                      child: isLoadiing == true
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : const CustomFont(
+                              color: Colors.white,
+                              text: "Assing Task",
+                              weight: FontWeight.w700,
+                              size: 15)),
                 )
               ],
             ),

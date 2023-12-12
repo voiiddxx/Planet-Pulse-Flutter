@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:planetpulse/core/verify/verifyservice.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
+import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -46,7 +47,12 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
   }
 
   approveVerificationtasks(dynamic id, dynamic postid) async {
-    await verificationService.approveResponse(id: id, postid: postid);
+    dynamic data = await verificationService.approveResponse(
+        id: id, postid: postid, context: context);
+    if (data == 200) {
+      showSnackBar(context, "Approved", Colors.red);
+    }
+    getuserQuestion();
     setState(() {});
   }
 

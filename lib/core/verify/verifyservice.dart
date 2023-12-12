@@ -35,8 +35,10 @@ class VerificationService {
     }
   }
 
-  Future<void> approveResponse(
-      {required dynamic id, required dynamic postid}) async {
+  Future<dynamic> approveResponse(
+      {required dynamic id,
+      required dynamic postid,
+      required BuildContext context}) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
@@ -51,7 +53,10 @@ class VerificationService {
             "Accept": "application/json",
             'x-auth-token': token!
           });
-      print(response.body);
+      if (response.statusCode != 200) {
+        showSnackBar(context, response.body, Colors.black);
+      }
+      return response.statusCode;
     } catch (e) {
       throw e.toString();
     }

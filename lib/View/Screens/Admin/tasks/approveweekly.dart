@@ -5,6 +5,7 @@ import 'package:planetpulse/core/tasks/taskservice.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:http/http.dart' as http;
+import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -17,6 +18,8 @@ class ApproveWeeklyTaskScreen extends StatefulWidget {
 }
 
 class _ApproveWeeklyTaskScreenState extends State<ApproveWeeklyTaskScreen> {
+  bool isLoading = false;
+
   final TaskService taskService = TaskService();
   dynamic tasks;
   Future<void> getAllTask() async {
@@ -51,8 +54,21 @@ class _ApproveWeeklyTaskScreenState extends State<ApproveWeeklyTaskScreen> {
       {required String userid,
       required String task_level,
       required String submitid}) async {
-    await taskService.approveWeeklyTasks(
-        userid: userid, task_level: task_level, submitid: submitid);
+    setState(() {
+      isLoading = true;
+    });
+    dynamic data = await taskService.approveWeeklyTasks(
+        userid: userid,
+        task_level: task_level,
+        submitid: submitid,
+        context: context);
+    setState(() {
+      isLoading = false;
+    });
+    if (data == 200) {
+      showSnackBar(context, "Task Approved", Colors.red);
+      getAllTask();
+    }
   }
 
   @override
