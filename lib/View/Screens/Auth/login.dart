@@ -5,6 +5,7 @@ import 'package:planetpulse/core/auth/authservice.dart';
 import 'package:planetpulse/providers/authprovider.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
+import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool isLoading = false;
   final TextEditingController usernameScontroller = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -82,14 +84,36 @@ class _LoginScreenState extends State<LoginScreen> {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {
-                        provider.loginUser(
+                      onPressed: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        dynamic data = await provider.loginUser(
                             username: usernameScontroller.text.trim(),
                             password: passwordController.text.trim(),
                             context: context);
+                        print(data);
+
+                        if (data == 200) {
+                          Navigator.pushNamed(context, RoutesNames.homescreen);
+                        } else {
+                          showSnackBar(context, "Some error", Colors.red);
+                        }
+
+                        setState(() {
+                          isLoading = false;
+                        });
                       },
-                      child:
-                          const Subtitle(color: Colors.white, text: "Login")),
+                      child: isLoading == true
+                          ? const Padding(
+                              padding: EdgeInsets.all(5),
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )
+                          : const Subtitle(color: Colors.white, text: "Login")),
                 ),
                 const SizedBox(height: 10),
                 InkWell(

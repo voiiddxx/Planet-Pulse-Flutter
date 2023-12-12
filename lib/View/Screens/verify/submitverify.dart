@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
+import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/View/components/textfield/whitetextfiled.dart';
 import 'package:planetpulse/core/verify/verifyservice.dart';
 import 'package:planetpulse/utils/colors/color.dart';
@@ -20,22 +23,34 @@ class SubmitSCreen extends StatefulWidget {
 class _SubmitSCreenState extends State<SubmitSCreen> {
   final TextEditingController detailcontroller = TextEditingController();
   final VerificationService verificationService = VerificationService();
+  bool isLoading = false;
 
   void postData() async {
     try {
+      setState(() {
+        isLoading = true;
+      });
       final cloudinary = CloudinaryPublic('dwkmxsthr', 'pdrcp1le');
       CloudinaryResponse response = await cloudinary.uploadFile(
         CloudinaryFile.fromFile(widget.image.path),
       );
-      showSnackBar(context, response.secureUrl, Colors.yellow);
-      // ignore: use_build_context_synchronously
-      await verificationService.submitVerification(
+
+      dynamic data = await verificationService.submitVerification(
           question: widget.submitTask,
           quesImage: response.secureUrl,
           context: context);
+      setState(() {
+        isLoading = false;
+      });
+      print(data);
+      if (data == 200) {
+        Navigator.pushNamed(context, RoutesNames.homescreen);
+        showSnackBar(context, "Task Submitted", Colors.red);
+      } else {
+        showSnackBar(context, "Some error occured", Colors.red);
+      }
     } catch (e) {
       if (context.mounted) {
-        print(e.toString());
         showSnackBar(context, e.toString(), Colors.red);
       }
     }
@@ -139,11 +154,17 @@ class _SubmitSCreenState extends State<SubmitSCreen> {
                     elevation: 0,
                     shape: ContinuousRectangleBorder(
                         borderRadius: BorderRadius.circular(15))),
-                child: const CustomFont(
-                    color: Colors.white,
-                    text: "Submit",
-                    weight: FontWeight.w500,
-                    size: 15),
+                child: isLoading == true
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : const CustomFont(
+                        color: Colors.white,
+                        text: "Submit",
+                        weight: FontWeight.w500,
+                        size: 15),
               ),
             ),
           ],

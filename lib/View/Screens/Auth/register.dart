@@ -1,9 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/View/components/textfield/textfiled.dart';
 import 'package:planetpulse/core/auth/authservice.dart';
+import 'package:planetpulse/providers/authprovider.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
+import 'package:planetpulse/utils/res/snackbar.dart';
+import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -13,6 +18,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  bool isLoading = false;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -20,6 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -90,15 +97,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {
-                        authService.createUserAccount(
-                            username: usernameController.text.trim(),
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim(),
-                            context: context);
+                      onPressed: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        dynamic data = await auth.registeruser(
+                            username: usernameController.text,
+                            email: emailController.text,
+                            password: passwordController.text);
+
+                        if (data == 200) {
+                          // ignore: use_build_context_synchronously
+                          Navigator.pushNamed(context, RoutesNames.loginScreen);
+                          showSnackBar(
+                              context, "Account Created", Colors.green);
+                        } else {
+                          showSnackBar(
+                              context, "Invalid Credentials", Colors.red);
+                        }
+                        setState(() {
+                          isLoading = false;
+                        });
                       },
-                      child: const Subtitle(
-                          color: Colors.white, text: "Create Now")),
+                      child: isLoading == true
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : const Subtitle(
+                              color: Colors.white, text: "Create Now")),
                 ),
                 const SizedBox(height: 10),
                 InkWell(

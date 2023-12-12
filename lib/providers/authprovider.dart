@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/models/loginuser.dart';
+import 'package:planetpulse/models/registeruser.dart';
 import 'package:planetpulse/models/user.dart';
 import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +26,7 @@ class AuthProvider extends ChangeNotifier {
 
   User get user => _user;
 
-  Future<void> loginUser(
+  Future<dynamic> loginUser(
       {required String username,
       required String password,
       required BuildContext context}) async {
@@ -55,18 +56,36 @@ class AuthProvider extends ChangeNotifier {
             total_completed_task: userData['total_completed_task'],
             category: userData['category'],
             ques: userData['ques']);
-        if (context.mounted) {
-          Navigator.pushNamed(context, RoutesNames.homescreen);
-        }
-      } else {
-        if (context.mounted) {
-          Navigator.pushNamed(context, RoutesNames.loginScreen);
-        }
+        return response.statusCode;
       }
     } catch (e) {
       if (context.mounted) {
         showSnackBar(context, e.toString(), Colors.red);
       }
+    }
+  }
+
+  Future<dynamic> registeruser(
+      {required String username,
+      required String email,
+      required String password}) async {
+    try {
+      print(username);
+      print(email);
+      print(password);
+      RegisterUser registerUser =
+          RegisterUser(username: username, email: email, password: password);
+      http.Response response = await http.post(
+          Uri.parse("https://planet-pulse-bphm.onrender.com/register"),
+          body: registerUser.toJson(),
+          headers: <String, String>{
+            "Content-type": "application/json",
+            "Accept": "application/json",
+          });
+      print(response.statusCode);
+      return response.statusCode;
+    } catch (e) {
+      throw e.toString();
     }
   }
 

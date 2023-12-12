@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'dart:convert';
 
@@ -199,7 +199,8 @@ class RankingScreenState extends State<RankingScreen> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(100),
                                     image: DecorationImage(
-                                      image: NetworkImage(user.userprofile),
+                                      image: NetworkImage(
+                                          rankingData[0]['userprofile']),
                                     ),
                                   ),
                                 ),
@@ -439,11 +440,22 @@ class RankingScreenState extends State<RankingScreen> {
                                                           BorderRadius.circular(
                                                               50)),
                                                 ))
-                                            : const CustomFont(
-                                                color: Colors.blue,
-                                                text: "500",
-                                                weight: FontWeight.w400,
-                                                size: 18),
+                                            : CustomFont(
+                                                color: Color.fromARGB(
+                                                    255, 43, 43, 43),
+                                                text:
+                                                    "Ratings: ${rankingData[index]['pro_planet_rating']}",
+                                                weight: FontWeight.w500,
+                                                size: 15),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        Container(
+                                          height: 0.2,
+                                          width: 250,
+                                          color: const Color.fromARGB(
+                                              255, 80, 80, 80),
+                                        )
                                       ],
                                     ),
                                     const Expanded(child: SizedBox()),

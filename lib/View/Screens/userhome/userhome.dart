@@ -8,6 +8,7 @@ import 'package:planetpulse/providers/authprovider.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({super.key});
@@ -65,10 +66,19 @@ class UserHomeScreenState extends State<UserHomeScreen> {
             const SizedBox(
               width: 15,
             ),
-            const Icon(
-              Icons.logout_sharp,
-              color: Colors.white,
-              size: 28,
+            InkWell(
+              onTap: () async {
+                final SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
+                await prefs.remove('x-aut-token');
+                // ignore: use_build_context_synchronously
+                Navigator.pushNamed(context, RoutesNames.loginScreen);
+              },
+              child: const Icon(
+                Icons.logout_sharp,
+                color: Colors.white,
+                size: 28,
+              ),
             ),
             const Icon(
               Icons.logout_sharp,

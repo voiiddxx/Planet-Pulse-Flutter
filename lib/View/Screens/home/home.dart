@@ -52,16 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
             text: "Pro Planet Verification",
           ),
           GButton(
-            icon: Icons.task_alt_sharp,
+            icon: Icons.add_circle_outline_sharp,
+            text: "Add Post",
+          ),
+          GButton(
+            icon: Icons.add_task_sharp,
             text: "Weekly Tasks",
           ),
           GButton(
-            icon: Icons.leaderboard_rounded,
+            icon: Icons.leaderboard_sharp,
             text: "Leaderboard",
-          ),
-          GButton(
-            icon: Icons.person,
-            text: "Profile",
           ),
         ],
         selectedIndex: _selectedIndex,

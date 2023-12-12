@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class VerificationService {
-  Future<void> submitVerification(
+  Future<dynamic> submitVerification(
       {required String question,
       required String quesImage,
       required BuildContext context}) async {
@@ -24,6 +24,9 @@ class VerificationService {
               "Accept": "application/json",
               'x-auth-token': token!
             });
+        print(response.body);
+
+        return response.statusCode;
       }
     } catch (e) {
       if (context.mounted) {

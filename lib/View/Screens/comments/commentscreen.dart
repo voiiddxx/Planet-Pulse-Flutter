@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
+import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:shimmer/shimmer.dart';
@@ -17,6 +20,7 @@ class CommentScreen extends StatefulWidget {
 }
 
 class _CommentScreenState extends State<CommentScreen> {
+  bool isLoading = false;
   dynamic allcomments;
   final TextEditingController commentcontroller = TextEditingController();
   void getPostComment() async {
@@ -44,6 +48,9 @@ class _CommentScreenState extends State<CommentScreen> {
   void postcomment(
       {required String commentdetail, required String postid}) async {
     try {
+      setState(() {
+        isLoading = true;
+      });
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
 
@@ -56,6 +63,15 @@ class _CommentScreenState extends State<CommentScreen> {
             "Accept": "application/json",
             'x-auth-token': token!
           });
+      setState(() {
+        isLoading = false;
+      });
+      if (response.statusCode == 200) {
+        showSnackBar(context, "Comment Added", Colors.white);
+        getPostComment();
+      } else {
+        showSnackBar(context, response.body, Colors.red);
+      }
 
       setState(() {});
     } catch (e) {
@@ -128,7 +144,8 @@ class _CommentScreenState extends State<CommentScreen> {
                     children: [
                       allcomments == null
                           ? Shimmer.fromColors(
-                              baseColor: Color.fromARGB(255, 217, 217, 217),
+                              baseColor:
+                                  const Color.fromARGB(255, 217, 217, 217),
                               highlightColor: Colors.white,
                               child: Container(
                                 height: 50,
@@ -158,7 +175,8 @@ class _CommentScreenState extends State<CommentScreen> {
                         children: [
                           allcomments == null
                               ? Shimmer.fromColors(
-                                  baseColor: Color.fromARGB(255, 217, 217, 217),
+                                  baseColor:
+                                      const Color.fromARGB(255, 217, 217, 217),
                                   highlightColor: Colors.white,
                                   child: Container(
                                     height: 10,
@@ -177,7 +195,8 @@ class _CommentScreenState extends State<CommentScreen> {
                           ),
                           allcomments == null
                               ? Shimmer.fromColors(
-                                  baseColor: Color.fromARGB(255, 217, 217, 217),
+                                  baseColor:
+                                      const Color.fromARGB(255, 217, 217, 217),
                                   highlightColor: Colors.white,
                                   child: Container(
                                     height: 5,
@@ -253,10 +272,16 @@ class _CommentScreenState extends State<CommentScreen> {
                       color: GlobalColor.primarycolor,
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    child: const Icon(
-                      Icons.send,
-                      color: Colors.white,
-                    ),
+                    child: isLoading == true
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Icon(
+                            Icons.send,
+                            color: Colors.white,
+                          ),
                   ),
                 )
               ],
