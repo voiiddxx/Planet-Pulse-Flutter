@@ -45,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           vertical: 10, horizontal: 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(
                             height: 10,
@@ -119,6 +120,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ],
                               ),
                             ],
+                          ),
+                          const SizedBox(
+                            height: 15,
                           ),
                         ],
                       ),
@@ -248,7 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 50,
                       width: 50,
                       decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 255, 72, 58),
+                          color: const Color.fromARGB(255, 255, 72, 58),
                           borderRadius: BorderRadius.circular(5)),
                       child: const Center(
                         child: Icon(
@@ -336,11 +340,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 50,
                       width: 50,
                       decoration: BoxDecoration(
-                          color: GlobalColor.primarycolor,
+                          color: const Color.fromARGB(255, 32, 32, 32),
                           borderRadius: BorderRadius.circular(5)),
                       child: const Center(
                         child: Icon(
-                          Icons.auto_awesome_sharp,
+                          Icons.login_rounded,
                           color: Colors.white,
                         ),
                       ),
@@ -350,7 +354,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     CustomFont(
                         color: GlobalColor.subtitlecolor,
-                        text: "Become an admin",
+                        text: "Log Out",
                         weight: FontWeight.w400,
                         size: 16),
                     Expanded(

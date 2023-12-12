@@ -9,6 +9,7 @@ import 'package:planetpulse/utils/font/font.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 class RankingScreen extends StatefulWidget {
   const RankingScreen({super.key});
@@ -18,7 +19,7 @@ class RankingScreen extends StatefulWidget {
 }
 
 class RankingScreenState extends State<RankingScreen> {
-  dynamic? rankingData;
+  dynamic rankingData;
   Future<void> getRankingData() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -59,6 +60,7 @@ class RankingScreenState extends State<RankingScreen> {
             height: MediaQuery.of(context).size.height * 0.4,
             width: double.infinity,
             decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
               image: DecorationImage(
                   image: AssetImage("assets/images/ranking.jpg"),
                   fit: BoxFit.cover),
@@ -96,34 +98,75 @@ class RankingScreenState extends State<RankingScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Container(
-                            height: 90,
-                            width: 90,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image:
-                                    NetworkImage(rankingData[1]['userprofile']),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
+                          rankingData == null
+                              ? Shimmer.fromColors(
+                                  baseColor:
+                                      const Color.fromARGB(128, 208, 208, 208),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 90,
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                  ))
+                              : Container(
+                                  height: 90,
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(50)),
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          rankingData[1]['userprofile']),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                           const SizedBox(
                             height: 8,
                           ),
-                          CustomFont(
-                              color: GlobalColor.headingcolor,
-                              text: rankingData[1]['username'],
-                              weight: FontWeight.w500,
-                              size: 15),
+                          rankingData == null
+                              ? Shimmer.fromColors(
+                                  baseColor:
+                                      const Color.fromARGB(128, 208, 208, 208),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 10,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                  ))
+                              : CustomFont(
+                                  color: GlobalColor.headingcolor,
+                                  text: rankingData[1]['username'],
+                                  weight: FontWeight.w500,
+                                  size: 15),
                           const SizedBox(
                             height: 4,
                           ),
-                          CustomFont(
-                              color: GlobalColor.headingcolor,
-                              text: rankingData[1]['pro_planet_rating']
-                                  .toString(),
-                              weight: FontWeight.w500,
-                              size: 12),
+                          rankingData == null
+                              ? Shimmer.fromColors(
+                                  baseColor:
+                                      const Color.fromARGB(128, 208, 208, 208),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 10,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                  ))
+                              : CustomFont(
+                                  color: GlobalColor.headingcolor,
+                                  text: rankingData[1]['pro_planet_rating']
+                                      .toString(),
+                                  weight: FontWeight.w500,
+                                  size: 12),
 
                           //////////////
                         ],
@@ -137,32 +180,72 @@ class RankingScreenState extends State<RankingScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Container(
-                            height: 130,
-                            width: 130,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(user.userprofile),
-                              ),
-                            ),
-                          ),
+                          rankingData == null
+                              ? Shimmer.fromColors(
+                                  baseColor:
+                                      const Color.fromARGB(128, 208, 208, 208),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 130,
+                                    width: 130,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                  ))
+                              : Container(
+                                  height: 130,
+                                  width: 130,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    image: DecorationImage(
+                                      image: NetworkImage(user.userprofile),
+                                    ),
+                                  ),
+                                ),
                           const SizedBox(
                             height: 8,
                           ),
-                          CustomFont(
-                              color: GlobalColor.headingcolor,
-                              text: rankingData[0]['username'],
-                              weight: FontWeight.w500,
-                              size: 15),
+                          rankingData == null
+                              ? Shimmer.fromColors(
+                                  baseColor:
+                                      const Color.fromARGB(128, 208, 208, 208),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 10,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                  ))
+                              : CustomFont(
+                                  color: GlobalColor.headingcolor,
+                                  text: rankingData[0]['username'],
+                                  weight: FontWeight.w500,
+                                  size: 15),
                           const SizedBox(
                             height: 4,
                           ),
-                          CustomFont(
-                              color: GlobalColor.headingcolor,
-                              text: rankingData[0]['pro_planet_rating']
-                                  .toString(),
-                              weight: FontWeight.w500,
-                              size: 12),
+                          rankingData == null
+                              ? Shimmer.fromColors(
+                                  baseColor:
+                                      const Color.fromARGB(128, 208, 208, 208),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 10,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                  ))
+                              : CustomFont(
+                                  color: GlobalColor.headingcolor,
+                                  text: rankingData[0]['pro_planet_rating']
+                                      .toString(),
+                                  weight: FontWeight.w500,
+                                  size: 12),
                           //////////////
                         ],
                       ),
@@ -175,33 +258,74 @@ class RankingScreenState extends State<RankingScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Container(
-                            height: 90,
-                            width: 90,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      rankingData[2]['userprofile']),
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
+                          rankingData == null
+                              ? Shimmer.fromColors(
+                                  baseColor:
+                                      const Color.fromARGB(128, 208, 208, 208),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 90,
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                  ))
+                              : Container(
+                                  height: 90,
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                          rankingData[2]['userprofile'],
+                                        ),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
                           const SizedBox(
                             height: 8,
                           ),
-                          CustomFont(
-                              color: GlobalColor.headingcolor,
-                              text: "${rankingData[2]['username']}",
-                              weight: FontWeight.w500,
-                              size: 15),
+                          rankingData == null
+                              ? Shimmer.fromColors(
+                                  baseColor:
+                                      const Color.fromARGB(128, 208, 208, 208),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 10,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                  ))
+                              : CustomFont(
+                                  color: GlobalColor.headingcolor,
+                                  text: "${rankingData[2]['username']}",
+                                  weight: FontWeight.w500,
+                                  size: 15),
                           const SizedBox(
                             height: 4,
                           ),
-                          CustomFont(
-                              color: GlobalColor.headingcolor,
-                              text: rankingData[2]['pro_planet_rating']
-                                  .toString(),
-                              weight: FontWeight.w500,
-                              size: 12),
+                          rankingData == null
+                              ? Shimmer.fromColors(
+                                  baseColor:
+                                      const Color.fromARGB(128, 208, 208, 208),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 10,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                  ))
+                              : CustomFont(
+                                  color: GlobalColor.headingcolor,
+                                  text: rankingData[2]['pro_planet_rating']
+                                      .toString(),
+                                  weight: FontWeight.w500,
+                                  size: 12),
                         ],
                       ),
                     ],
@@ -226,7 +350,7 @@ class RankingScreenState extends State<RankingScreen> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: rankingData.length,
+                    itemCount: rankingData == null ? 4 : rankingData.length,
                     itemBuilder: (context, index) {
                       int data = index + 1;
                       return Padding(
@@ -242,18 +366,32 @@ class RankingScreenState extends State<RankingScreen> {
                                     const EdgeInsets.symmetric(horizontal: 15),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      height: 60,
-                                      width: 60,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  rankingData[index]
-                                                      ['userprofile'])),
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
-                                    ),
+                                    rankingData == null
+                                        ? Shimmer.fromColors(
+                                            baseColor: const Color.fromARGB(
+                                                128, 208, 208, 208),
+                                            highlightColor: Colors.white,
+                                            child: Container(
+                                              height: 60,
+                                              width: 60,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50)),
+                                            ))
+                                        : Container(
+                                            height: 60,
+                                            width: 60,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        rankingData[index]
+                                                            ['userprofile'])),
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(30)),
+                                          ),
                                     const SizedBox(
                                       width: 30,
                                     ),
@@ -263,39 +401,83 @@ class RankingScreenState extends State<RankingScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        CustomFont(
-                                            color: GlobalColor.headingcolor,
-                                            text: rankingData[index]['username']
-                                                .toString(),
-                                            weight: FontWeight.bold,
-                                            size: 18),
+                                        rankingData == null
+                                            ? Shimmer.fromColors(
+                                                baseColor: const Color.fromARGB(
+                                                    128, 208, 208, 208),
+                                                highlightColor: Colors.white,
+                                                child: Container(
+                                                  height: 10,
+                                                  width: 100,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50)),
+                                                ))
+                                            : CustomFont(
+                                                color: GlobalColor.headingcolor,
+                                                text: rankingData[index]
+                                                        ['username']
+                                                    .toString(),
+                                                weight: FontWeight.bold,
+                                                size: 18),
                                         const SizedBox(
                                           height: 4,
                                         ),
-                                        const CustomFont(
-                                            color: Colors.blue,
-                                            text: "500",
-                                            weight: FontWeight.w400,
-                                            size: 18),
+                                        rankingData == null
+                                            ? Shimmer.fromColors(
+                                                baseColor: const Color.fromARGB(
+                                                    128, 208, 208, 208),
+                                                highlightColor: Colors.white,
+                                                child: Container(
+                                                  height: 10,
+                                                  width: 60,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              50)),
+                                                ))
+                                            : const CustomFont(
+                                                color: Colors.blue,
+                                                text: "500",
+                                                weight: FontWeight.w400,
+                                                size: 18),
                                       ],
                                     ),
                                     const Expanded(child: SizedBox()),
-                                    Container(
-                                      height: 30,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 47, 47, 47),
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
-                                      child: Center(
-                                        child: CustomFont(
-                                            color: Colors.white,
-                                            text: data.toString(),
-                                            weight: FontWeight.w400,
-                                            size: 15),
-                                      ),
-                                    )
+                                    rankingData == null
+                                        ? Shimmer.fromColors(
+                                            baseColor: const Color.fromARGB(
+                                                128, 208, 208, 208),
+                                            highlightColor: Colors.white,
+                                            child: Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50)),
+                                            ))
+                                        : Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  255, 47, 47, 47),
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            child: Center(
+                                              child: CustomFont(
+                                                  color: Colors.white,
+                                                  text: data.toString(),
+                                                  weight: FontWeight.w400,
+                                                  size: 15),
+                                            ),
+                                          )
                                   ],
                                 ),
                               ),
