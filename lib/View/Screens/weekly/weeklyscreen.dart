@@ -14,6 +14,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
   String? taskLevel;
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(240, 240, 240, 1),
       appBar: AppBar(
@@ -48,7 +49,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                   color: GlobalColor.headingcolor,
                   text: "Weekly Tasks",
                   weight: FontWeight.w600,
-                  size: 20),
+                  size: h * 0.025),
               const SizedBox(
                 height: 10,
               ),

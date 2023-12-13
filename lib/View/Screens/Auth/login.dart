@@ -23,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
     final provider = Provider.of<AuthProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -79,41 +81,45 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50,
                   width: double.infinity,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: GlobalColor.headingcolor,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        dynamic data = await provider.loginUser(
-                            username: usernameScontroller.text.trim(),
-                            password: passwordController.text.trim(),
-                            context: context);
-                        print(data);
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: GlobalColor.headingcolor,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      dynamic data = await provider.loginUser(
+                          username: usernameScontroller.text.trim(),
+                          password: passwordController.text.trim(),
+                          context: context);
 
-                        if (data == 200) {
-                          Navigator.pushNamed(context, RoutesNames.homescreen);
-                        } else {
-                          showSnackBar(context, "Some error", Colors.red);
-                        }
+                      if (data == 200) {
+                        Navigator.pushNamed(context, RoutesNames.homescreen);
+                      } else {
+                        showSnackBar(context, "Some error", Colors.red);
+                      }
 
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
-                      child: isLoading == true
-                          ? const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
+                    child: isLoading == true
+                        ? const Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
                               ),
-                            )
-                          : const Subtitle(color: Colors.white, text: "Login")),
+                            ),
+                          )
+                        : CustomFont(
+                            color: Colors.white,
+                            text: "Login",
+                            weight: FontWeight.w500,
+                            size: h * 0.02),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 InkWell(
@@ -125,14 +131,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       CustomFont(
                           color: GlobalColor.subtitlecolor,
-                          text: "Already have an account? ",
-                          weight: FontWeight.w300,
-                          size: 15),
-                      const CustomFont(
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          text: "Login Now",
+                          text: "Don't have an account   ",
+                          weight: FontWeight.w400,
+                          size: h * 0.017),
+                      CustomFont(
+                          color: const Color.fromARGB(255, 33, 89, 243),
+                          text: "Create Now",
                           weight: FontWeight.w500,
-                          size: 15),
+                          size: h * 0.02),
                     ],
                   ),
                 )

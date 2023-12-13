@@ -38,11 +38,11 @@ class _PostCardState extends State<PostCard> {
   bool postLiked = false;
   @override
   Widget build(BuildContext context) {
-    print(widget.postcomment);
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.45,
         width: double.infinity,
         decoration: const BoxDecoration(
             color: Colors.white,
@@ -88,8 +88,8 @@ class _PostCardState extends State<PostCard> {
                           baseColor: const Color.fromARGB(255, 212, 212, 212),
                           highlightColor: Colors.white,
                           child: Container(
-                            height: 30,
-                            width: 30,
+                            height: h * 0.045,
+                            width: w * 0.08,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               color: Colors.white,
@@ -97,8 +97,8 @@ class _PostCardState extends State<PostCard> {
                           ),
                         )
                       : Container(
-                          height: 30,
-                          width: 30,
+                          height: h * 0.045,
+                          width: w * 0.08,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(widget.userimage),

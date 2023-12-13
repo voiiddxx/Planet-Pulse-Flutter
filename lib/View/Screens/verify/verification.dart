@@ -47,6 +47,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(240, 240, 240, 1),
       appBar: AppBar(
@@ -81,8 +82,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
               CustomFont(
                   color: GlobalColor.headingcolor,
                   text: "Pro Planet Verification",
-                  weight: FontWeight.w600,
-                  size: 20),
+                  weight: FontWeight.w700,
+                  size: h * 0.025),
               const SizedBox(
                 height: 10,
               ),
@@ -91,7 +92,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   text:
                       "To apply for pro planet verification upload the proof of given below tasks and on uploading the fake proofs your points will be deducted",
                   weight: FontWeight.w400,
-                  size: 15),
+                  size: h * 0.018),
               const SizedBox(
                 height: 15,
               ),
@@ -102,7 +103,6 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.48,
                         width: double.infinity,
                         decoration: const BoxDecoration(
                           color: Colors.white,
@@ -128,15 +128,15 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10))),
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: h * 0.02,
                               ),
                               CustomFont(
                                   color: Colors.black,
                                   text: GloablVariable.verifyconfig[index]
                                       ['title']!,
                                   weight: FontWeight.w500,
-                                  size: 17),
+                                  size: h * 0.022),
                               const SizedBox(
                                 height: 8,
                               ),
@@ -171,7 +171,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                     text: "Submit proof",
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),

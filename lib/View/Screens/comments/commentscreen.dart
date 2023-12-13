@@ -87,6 +87,8 @@ class _CommentScreenState extends State<CommentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
     return Container(
       height: 800,
       width: 600,
@@ -206,7 +208,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                         color: Colors.white),
                                   ))
                               : SizedBox(
-                                  width: 300,
+                                  width: w * 0.2,
                                   child: CustomFont(
                                       color: GlobalColor.headingcolor,
                                       text: allcomments[index]['commentdetail'],

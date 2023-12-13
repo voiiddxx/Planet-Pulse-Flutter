@@ -15,6 +15,8 @@ class SplashScreen extends StatefulWidget {
 class SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
     final provider = Provider.of<AuthProvider>(context);
     return Scaffold(
       body: Column(
@@ -31,15 +33,15 @@ class SplashScreenState extends State<SplashScreen> {
                   Text(
                     "Let's Contribute To Planet By",
                     style: GoogleFonts.leagueGothic(
-                        fontSize: 48, color: GlobalColor.headingcolor),
+                        fontSize: h * 0.05, color: GlobalColor.headingcolor),
                   ),
                   Text(
                     "Pro Planet Person ",
                     style: GoogleFonts.leagueGothic(
-                        fontSize: 48, color: GlobalColor.subtitlecolor),
+                        fontSize: h * 0.05, color: GlobalColor.subtitlecolor),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: h * 0.01,
                   ),
                   DetailText(
                       color: GlobalColor.headingcolor,
@@ -53,20 +55,21 @@ class SplashScreenState extends State<SplashScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () => {provider.getCurrUser(context)},
-                        child: Container(
-                          height: 85,
-                          width: 85,
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(51, 51, 51, 1),
-                              borderRadius: BorderRadius.circular(85)),
-                          child: const Icon(
-                            Icons.arrow_forward_ios_sharp,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                        ),
-                      )
+                          onTap: () => {provider.getCurrUser(context)},
+                          child: Center(
+                            child: Container(
+                              height: h * 0.1,
+                              width: w * 0.2,
+                              decoration: BoxDecoration(
+                                  color: const Color.fromRGBO(51, 51, 51, 1),
+                                  borderRadius: BorderRadius.circular(100)),
+                              child: const Icon(
+                                Icons.send_sharp,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                            ),
+                          ))
                     ],
                   )
                 ],

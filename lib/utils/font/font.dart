@@ -31,10 +31,11 @@ class HeadingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return Text(
       text,
       style: GoogleFonts.manrope(
-          fontSize: 25, fontWeight: FontWeight.bold, color: color),
+          fontSize: h * 0.025, fontWeight: FontWeight.bold, color: color),
     );
   }
 }
@@ -46,10 +47,11 @@ class Subtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return Text(
       text,
       style: GoogleFonts.manrope(
-          fontSize: 17, fontWeight: FontWeight.w300, color: color),
+          fontSize: h * 0.018, fontWeight: FontWeight.w400, color: color),
     );
   }
 }
@@ -61,10 +63,11 @@ class DetailText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return Text(
       text,
       style: GoogleFonts.manrope(
-          fontSize: 15, color: color, fontWeight: FontWeight.w300),
+          fontSize: h * 0.018, color: color, fontWeight: FontWeight.w300),
     );
   }
 }

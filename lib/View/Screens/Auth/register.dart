@@ -26,6 +26,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
+
     final auth = Provider.of<AuthProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -57,6 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     icon: const Icon(
                       Icons.person_sharp,
                       size: 20,
+                      color: Color.fromARGB(255, 59, 59, 59),
                     )),
                 const SizedBox(
                   height: 20,
@@ -68,6 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     icon: const Icon(
                       Icons.email,
                       size: 20,
+                      color: Color.fromARGB(255, 59, 59, 59),
                     )),
                 const SizedBox(
                   height: 20,
@@ -79,6 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     icon: const Icon(
                       Icons.lock_outline_sharp,
                       size: 20,
+                      color: Color.fromARGB(255, 59, 59, 59),
                     )),
               ],
             ),
@@ -89,44 +94,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 50,
+                  height: h * 0.07,
                   width: double.infinity,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: GlobalColor.headingcolor,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        dynamic data = await auth.registeruser(
-                            username: usernameController.text,
-                            email: emailController.text,
-                            password: passwordController.text);
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: GlobalColor.headingcolor,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      dynamic data = await auth.registeruser(
+                          username: usernameController.text,
+                          email: emailController.text,
+                          password: passwordController.text);
 
-                        if (data == 200) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushNamed(context, RoutesNames.loginScreen);
-                          showSnackBar(
-                              context, "Account Created", Colors.green);
-                        } else {
-                          showSnackBar(
-                              context, "Invalid Credentials", Colors.red);
-                        }
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
-                      child: isLoading == true
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                              ),
-                            )
-                          : const Subtitle(
-                              color: Colors.white, text: "Create Now")),
+                      if (data == 200) {
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushNamed(context, RoutesNames.loginScreen);
+                        showSnackBar(context, "Account Created", Colors.green);
+                      } else {
+                        showSnackBar(
+                            context, "Invalid Credentials", Colors.red);
+                      }
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
+                    child: isLoading == true
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : CustomFont(
+                            color: Colors.white,
+                            text: "Create Now",
+                            weight: FontWeight.w500,
+                            size: h * 0.018),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 InkWell(
@@ -137,22 +145,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       CustomFont(
                           color: GlobalColor.subtitlecolor,
-                          text: "Already have an account? ",
+                          text: "Already have an account?   ",
                           weight: FontWeight.w300,
-                          size: 15),
-                      const CustomFont(
-                          color: Color.fromARGB(255, 0, 0, 0),
+                          size: h * 0.018),
+                      CustomFont(
+                          color: Color.fromARGB(255, 72, 109, 255),
                           text: "Login Now",
                           weight: FontWeight.w500,
-                          size: 15),
+                          size: h * 0.018),
                     ],
                   ),
                 )
               ],
             ),
-          ),
-          const SizedBox(
-            height: 20,
           ),
         ],
       ),

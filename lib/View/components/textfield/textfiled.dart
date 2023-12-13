@@ -16,8 +16,9 @@ class customTextFiled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return SizedBox(
-      height: 50,
+      height: h * 0.065,
       width: double.infinity,
       child: TextField(
         obscureText: obscure,
@@ -25,7 +26,7 @@ class customTextFiled extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: icon,
           hintStyle: GoogleFonts.manrope(
-            fontSize: 14,
+            fontSize: h * 0.016,
           ),
           hintText: hinttext,
           enabled: true,
