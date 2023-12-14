@@ -33,7 +33,7 @@ class SplashScreenState extends State<SplashScreen> {
                   Text(
                     "Let's Contribute To Planet By",
                     style: GoogleFonts.leagueGothic(
-                        fontSize: h * 0.05, color: GlobalColor.headingcolor),
+                        fontSize: h * 0.04, color: GlobalColor.headingcolor),
                   ),
                   Text(
                     "Pro Planet Person ",
@@ -58,8 +58,8 @@ class SplashScreenState extends State<SplashScreen> {
                           onTap: () => {provider.getCurrUser(context)},
                           child: Center(
                             child: Container(
-                              height: h * 0.1,
-                              width: w * 0.2,
+                              height: h * 0.08,
+                              width: w * 0.18,
                               decoration: BoxDecoration(
                                   color: const Color.fromRGBO(51, 51, 51, 1),
                                   borderRadius: BorderRadius.circular(100)),

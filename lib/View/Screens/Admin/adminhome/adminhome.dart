@@ -23,7 +23,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.3,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -75,6 +74,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                         width: 150,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
+                                elevation: 0,
                                 backgroundColor: Colors.blue[50],
                                 shape: ContinuousRectangleBorder(
                                     borderRadius: BorderRadius.circular(20))),

@@ -91,21 +91,21 @@ class _PostCardState extends State<PostCard> {
                             height: h * 0.045,
                             width: w * 0.08,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
+                              borderRadius: BorderRadius.circular(100),
                               color: Colors.white,
                             ),
                           ),
                         )
                       : Container(
                           height: h * 0.045,
-                          width: w * 0.08,
+                          width: w * 0.10,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(widget.userimage),
                                 fit: BoxFit.cover),
                             color: Colors.red,
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(50),
+                              Radius.circular(150),
                             ),
                           ),
                         ),

@@ -140,12 +140,12 @@ class UserHomeScreenState extends State<UserHomeScreen> {
                                         color: Colors.black,
                                         text: "Your Rating",
                                         weight: FontWeight.w400,
-                                        size: h * 0.018),
+                                        size: h * 0.016),
                                     const SizedBox(
                                       width: 10,
                                     ),
                                     Container(
-                                        height: h * 0.05,
+                                        height: h * 0.04,
                                         width: w * 0.13,
                                         decoration: BoxDecoration(
                                             color: const Color.fromARGB(
@@ -169,7 +169,7 @@ class UserHomeScreenState extends State<UserHomeScreen> {
                               ),
                               Container(
                                 height: 51,
-                                width: MediaQuery.of(context).size.width * 0.44,
+                                width: MediaQuery.of(context).size.width * 0.45,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(5)),
@@ -180,13 +180,13 @@ class UserHomeScreenState extends State<UserHomeScreen> {
                                         color: Colors.black,
                                         text: "Completed task",
                                         weight: FontWeight.w400,
-                                        size: h * 0.018),
+                                        size: h * 0.016),
                                     const SizedBox(
                                       width: 8,
                                     ),
                                     Container(
-                                      height: h * 0.05,
-                                      width: w * 0.13,
+                                      height: h * 0.04,
+                                      width: w * 0.12,
                                       decoration: BoxDecoration(
                                           color: const Color.fromARGB(
                                               255, 36, 36, 36),
@@ -199,7 +199,7 @@ class UserHomeScreenState extends State<UserHomeScreen> {
                                                 .total_completed_task
                                                 .toString(),
                                             weight: FontWeight.w400,
-                                            size: h * 0.018),
+                                            size: h * 0.016),
                                       ),
                                     ),
                                   ],
@@ -208,10 +208,10 @@ class UserHomeScreenState extends State<UserHomeScreen> {
                             ],
                           ),
                           SizedBox(
-                            height: h * 0.03,
+                            height: h * 0.025,
                           ),
                           Container(
-                            height: h * 0.06,
+                            height: h * 0.05,
                             width: w * 0.35,
                             decoration: const BoxDecoration(
                                 color: Color.fromARGB(47, 255, 255, 255),
@@ -222,8 +222,8 @@ class UserHomeScreenState extends State<UserHomeScreen> {
                                   color: Colors.white,
                                   text:
                                       "Pro Planet Level ${currentuser.pro_planet_level}",
-                                  weight: FontWeight.w600,
-                                  size: h * 0.017),
+                                  weight: FontWeight.w500,
+                                  size: h * 0.015),
                             ),
                           )
                         ],

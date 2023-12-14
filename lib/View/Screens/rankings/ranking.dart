@@ -51,13 +51,14 @@ class RankingScreenState extends State<RankingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
     final user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.4,
             width: double.infinity,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -69,25 +70,22 @@ class RankingScreenState extends State<RankingScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: h * 0.1,
                   ),
                   CustomFont(
                       color: GlobalColor.headingcolor,
                       text: "Pro Planet Persons",
                       weight: FontWeight.w900,
                       size: 25),
-                  const SizedBox(
-                    height: 4,
+                  SizedBox(
+                    height: 10,
                   ),
                   CustomFont(
                       color: GlobalColor.headingcolor,
                       text: "Ranking of pro planet persons",
                       weight: FontWeight.w300,
                       size: 15),
-                  const SizedBox(
-                    height: 30,
-                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -95,9 +93,7 @@ class RankingScreenState extends State<RankingScreen> {
                       Column(
                         children: [
                           //////////////
-                          const SizedBox(
-                            height: 20,
-                          ),
+
                           rankingData == null
                               ? Shimmer.fromColors(
                                   baseColor:
@@ -112,11 +108,10 @@ class RankingScreenState extends State<RankingScreen> {
                                             BorderRadius.circular(50)),
                                   ))
                               : Container(
-                                  height: 90,
-                                  width: 90,
+                                  height: h * 0.09,
+                                  width: w * 0.2,
                                   decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(50)),
+                                    shape: BoxShape.circle,
                                     image: DecorationImage(
                                       image: NetworkImage(
                                           rankingData[1]['userprofile']),
@@ -144,7 +139,7 @@ class RankingScreenState extends State<RankingScreen> {
                                   color: GlobalColor.headingcolor,
                                   text: rankingData[1]['username'],
                                   weight: FontWeight.w500,
-                                  size: 15),
+                                  size: h * 0.015),
                           const SizedBox(
                             height: 4,
                           ),
@@ -177,16 +172,14 @@ class RankingScreenState extends State<RankingScreen> {
                       Column(
                         children: [
                           //////////////
-                          const SizedBox(
-                            height: 20,
-                          ),
+
                           rankingData == null
                               ? Shimmer.fromColors(
                                   baseColor:
                                       const Color.fromARGB(128, 208, 208, 208),
                                   highlightColor: Colors.white,
                                   child: Container(
-                                    height: 130,
+                                    height: h * 0.2,
                                     width: 130,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -194,19 +187,17 @@ class RankingScreenState extends State<RankingScreen> {
                                     ),
                                   ))
                               : Container(
-                                  height: 130,
-                                  width: 130,
+                                  height: h * 0.2,
+                                  width: w * 0.3,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
+                                    shape: BoxShape.circle,
                                     image: DecorationImage(
                                       image: NetworkImage(
                                           rankingData[0]['userprofile']),
                                     ),
                                   ),
                                 ),
-                          const SizedBox(
-                            height: 8,
-                          ),
+
                           rankingData == null
                               ? Shimmer.fromColors(
                                   baseColor:
@@ -273,10 +264,10 @@ class RankingScreenState extends State<RankingScreen> {
                                             BorderRadius.circular(50)),
                                   ))
                               : Container(
-                                  height: 90,
-                                  width: 90,
+                                  height: h * 0.09,
+                                  width: w * 0.2,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
+                                    shape: BoxShape.circle,
                                     image: DecorationImage(
                                         image: NetworkImage(
                                           rankingData[2]['userprofile'],
@@ -284,9 +275,7 @@ class RankingScreenState extends State<RankingScreen> {
                                         fit: BoxFit.cover),
                                   ),
                                 ),
-                          const SizedBox(
-                            height: 8,
-                          ),
+
                           rankingData == null
                               ? Shimmer.fromColors(
                                   baseColor:
@@ -338,7 +327,7 @@ class RankingScreenState extends State<RankingScreen> {
 
           ///====================ALL container for showing the rankings==========//
           Container(
-            height: MediaQuery.of(context).size.height * 0.52,
+            height: MediaQuery.of(context).size.height * 0.46,
             width: double.infinity,
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -359,7 +348,7 @@ class RankingScreenState extends State<RankingScreen> {
                         child: Column(
                           children: [
                             Container(
-                              height: 100,
+                              height: h * 0.09,
                               width: double.infinity,
                               color: Colors.white,
                               child: Padding(
@@ -373,17 +362,16 @@ class RankingScreenState extends State<RankingScreen> {
                                                 128, 208, 208, 208),
                                             highlightColor: Colors.white,
                                             child: Container(
-                                              height: 60,
-                                              width: 60,
+                                              height: 40,
+                                              width: 40,
                                               decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          50)),
+                                                shape: BoxShape.circle,
+                                                color: Colors.white,
+                                              ),
                                             ))
                                         : Container(
-                                            height: 60,
-                                            width: 60,
+                                            height: 50,
+                                            width: 50,
                                             decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     image: NetworkImage(
@@ -422,7 +410,7 @@ class RankingScreenState extends State<RankingScreen> {
                                                         ['username']
                                                     .toString(),
                                                 weight: FontWeight.bold,
-                                                size: 18),
+                                                size: h * 0.016),
                                         const SizedBox(
                                           height: 4,
                                         ),
@@ -446,19 +434,18 @@ class RankingScreenState extends State<RankingScreen> {
                                                 text:
                                                     "Ratings: ${rankingData[index]['pro_planet_rating']}",
                                                 weight: FontWeight.w500,
-                                                size: 15),
+                                                size: h * 0.014),
                                         const SizedBox(
                                           height: 15,
                                         ),
                                         Container(
                                           height: 0.2,
-                                          width: 250,
+                                          width: w * 0.6,
                                           color: const Color.fromARGB(
                                               255, 80, 80, 80),
                                         )
                                       ],
                                     ),
-                                    const Expanded(child: SizedBox()),
                                     rankingData == null
                                         ? Shimmer.fromColors(
                                             baseColor: const Color.fromARGB(
@@ -474,20 +461,18 @@ class RankingScreenState extends State<RankingScreen> {
                                                           50)),
                                             ))
                                         : Container(
-                                            height: 30,
-                                            width: 30,
+                                            height: h * 0.03,
+                                            width: w * 0.07,
                                             decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 47, 47, 47),
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                            ),
+                                                color: const Color.fromARGB(
+                                                    255, 47, 47, 47),
+                                                shape: BoxShape.circle),
                                             child: Center(
                                               child: CustomFont(
                                                   color: Colors.white,
                                                   text: data.toString(),
                                                   weight: FontWeight.w400,
-                                                  size: 15),
+                                                  size: h * 0.012),
                                             ),
                                           )
                                   ],

@@ -64,6 +64,8 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 39, 39, 39),
         body: Column(
@@ -146,7 +148,7 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
               ),
             ),
             Container(
-              height: 650,
+              height: h * 0.7,
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
@@ -312,8 +314,8 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                                                           color: Colors.black,
                                                         ),
                                                       ))
-                                                  : const SizedBox(
-                                                      width: 250,
+                                                  : SizedBox(
+                                                      width: w * 0.65,
                                                       child: CustomFont(
                                                           color:
                                                               Color
@@ -350,7 +352,7 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                                                                     context)
                                                                 .size
                                                                 .width *
-                                                            0.37,
+                                                            0.32,
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
@@ -364,7 +366,7 @@ class _ApprovemainScreenState extends State<ApprovemainScreen> {
                                                       width: MediaQuery.of(context)
                                                               .size
                                                               .width *
-                                                          0.37,
+                                                          0.32,
                                                       child: ElevatedButton(
                                                           style: ElevatedButton.styleFrom(
                                                               shape: ContinuousRectangleBorder(

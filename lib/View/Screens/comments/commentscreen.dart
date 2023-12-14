@@ -208,7 +208,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                         color: Colors.white),
                                   ))
                               : SizedBox(
-                                  width: w * 0.2,
+                                  width: w * 0.7,
                                   child: CustomFont(
                                       color: GlobalColor.headingcolor,
                                       text: allcomments[index]['commentdetail'],

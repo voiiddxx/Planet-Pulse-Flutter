@@ -15,6 +15,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color.fromRGBO(240, 240, 240, 1),
       appBar: AppBar(
@@ -58,12 +59,11 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                   text:
                       "To apply for pro planet verification upload the proof of given below tasks and on uploading the fake proofs your points will be deducted",
                   weight: FontWeight.w400,
-                  size: 15),
+                  size: h * 0.014),
               const SizedBox(
                 height: 20,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.22,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -93,14 +93,14 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                               size: 40,
                             ),
                           ),
-                          const SizedBox(
-                            width: 220,
+                          SizedBox(
+                            width: w * 0.5,
                             child: CustomFont(
                                 color: Color.fromARGB(255, 75, 75, 75),
                                 text:
                                     "Gift Your Friends a paper bag and try to motivate them to use paper bag instead of using plastic bags",
                                 weight: FontWeight.w500,
-                                size: 15),
+                                size: h * 0.015),
                           )
                         ],
                       ),
@@ -108,7 +108,7 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                         height: 20,
                       ),
                       SizedBox(
-                        height: 50,
+                        height: h * 0.07,
                         width: double.infinity,
                         child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
@@ -148,7 +148,6 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                 height: 25,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.22,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -167,9 +166,9 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                         children: [
                           Container(
                             height: MediaQuery.of(context).size.height * 0.09,
-                            width: MediaQuery.of(context).size.width * 0.22,
+                            width: MediaQuery.of(context).size.width * 0.2,
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 206, 185, 0),
+                              color: const Color.fromARGB(255, 206, 185, 0),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: const Icon(
@@ -178,14 +177,14 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                               size: 40,
                             ),
                           ),
-                          const SizedBox(
-                            width: 220,
+                          SizedBox(
+                            width: w * 0.5,
                             child: CustomFont(
                                 color: Color.fromARGB(255, 75, 75, 75),
                                 text:
                                     "Gift Your Friends a paper bag and try to motivate them to use paper bag instead of using plastic bags",
                                 weight: FontWeight.w500,
-                                size: 15),
+                                size: h * 0.015),
                           )
                         ],
                       ),
@@ -234,7 +233,6 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                 height: 25,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.22,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -264,14 +262,14 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                               size: 40,
                             ),
                           ),
-                          const SizedBox(
-                            width: 220,
+                          SizedBox(
+                            width: w * 0.5,
                             child: CustomFont(
                                 color: Color.fromARGB(255, 75, 75, 75),
                                 text:
                                     "Gift Your Friends a paper bag and try to motivate them to use paper bag instead of using plastic bags",
                                 weight: FontWeight.w500,
-                                size: 15),
+                                size: h * 0.015),
                           )
                         ],
                       ),

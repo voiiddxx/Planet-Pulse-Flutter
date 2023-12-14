@@ -53,6 +53,8 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
     final user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -103,7 +105,6 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                           itemCount: 3,
                           itemBuilder: (context, index) {
                             return SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.5,
                               width: double.infinity,
                               child: Shimmer.fromColors(
                                   baseColor:
@@ -130,7 +131,6 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                           itemBuilder: (context, index) {
                             return Container(
                               margin: const EdgeInsets.only(bottom: 10),
-                              height: MediaQuery.of(context).size.height * 0.5,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: Colors.yellow,
@@ -148,7 +148,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                     height: 30,
                                   ),
                                   SizedBox(
-                                    height: 170,
+                                    height: h * 0.195,
                                     width: double.infinity,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -163,7 +163,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                             width: 5,
                                           ),
                                           SizedBox(
-                                            width: 160,
+                                            width: w * 0.45,
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -178,7 +178,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                                     text: getAppliedUser[index]
                                                         ['username'],
                                                     weight: FontWeight.w900,
-                                                    size: 38),
+                                                    size: h * 0.04),
                                                 const SizedBox(
                                                   height: 10,
                                                 ),
@@ -193,8 +193,8 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                             ),
                                           ),
                                           Container(
-                                            height: 160,
-                                            width: 160,
+                                            height: h * 0.17,
+                                            width: w * 0.35,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
                                                   image: NetworkImage(
@@ -229,7 +229,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(10),
+                                        padding: const EdgeInsets.all(15),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -240,7 +240,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                                 text:
                                                     "Approve Pro Planet verification Request of ${getAppliedUser[index]['username']}",
                                                 weight: FontWeight.w600,
-                                                size: 17),
+                                                size: h * 0.017),
                                             Row(
                                               children: [
                                                 Container(
@@ -260,19 +260,19 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                                                     index][
                                                                 'total_completed_task']
                                                             .toString(),
-                                                        weight: FontWeight.bold,
-                                                        size: 13),
+                                                        weight: FontWeight.w500,
+                                                        size: h * 0.016),
                                                   ),
                                                 ),
                                                 const SizedBox(
                                                   width: 10,
                                                 ),
-                                                const CustomFont(
+                                                CustomFont(
                                                     color: Color.fromARGB(
                                                         255, 71, 71, 71),
                                                     text: "Total submited task",
                                                     weight: FontWeight.w600,
-                                                    size: 13),
+                                                    size: h * 0.014),
                                               ],
                                             ),
                                             Row(
@@ -294,20 +294,20 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                                                     index][
                                                                 'pro_planet_rating']
                                                             .toString(),
-                                                        weight: FontWeight.bold,
-                                                        size: 10),
+                                                        weight: FontWeight.w500,
+                                                        size: h * 0.010),
                                                   ),
                                                 ),
                                                 const SizedBox(
                                                   width: 10,
                                                 ),
-                                                const CustomFont(
+                                                CustomFont(
                                                     color: Color.fromARGB(
                                                         255, 71, 71, 71),
                                                     text:
                                                         "Total weekly completed Task",
                                                     weight: FontWeight.w600,
-                                                    size: 13),
+                                                    size: h * 0.013),
                                               ],
                                             ),
                                             SizedBox(
@@ -336,7 +336,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                                   child: const CustomFont(
                                                       color: Colors.white,
                                                       text: "Approve Responses",
-                                                      weight: FontWeight.bold,
+                                                      weight: FontWeight.w500,
                                                       size: 13)),
                                             ),
                                           ],

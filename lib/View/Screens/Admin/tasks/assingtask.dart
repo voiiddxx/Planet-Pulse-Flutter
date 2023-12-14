@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:io';
 
@@ -68,7 +68,6 @@ class _AssingTaskState extends State<AssingTask> {
         showSnackBar(context, "Task Assigned", Colors.red);
         Navigator.pushNamed(context, RoutesNames.adminbottombar);
       }
-      // ignore: use_build_context_synchronously
     } catch (e) {
       if (context.mounted) {
         print(e.toString());
@@ -86,6 +85,8 @@ class _AssingTaskState extends State<AssingTask> {
   Color hardtextxolor = Colors.red;
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         appBar: AppBar(
@@ -116,7 +117,7 @@ class _AssingTaskState extends State<AssingTask> {
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
+          padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 15),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -130,11 +131,11 @@ class _AssingTaskState extends State<AssingTask> {
                 const SizedBox(
                   height: 20,
                 ),
-                const CustomFont(
+                CustomFont(
                     color: Color.fromARGB(255, 64, 64, 64),
                     text: "Set Task Level",
                     weight: FontWeight.w300,
-                    size: 15),
+                    size: h * 0.015),
                 const SizedBox(
                   height: 15,
                 ),
@@ -154,8 +155,8 @@ class _AssingTaskState extends State<AssingTask> {
                         });
                       },
                       child: Container(
-                        height: 40,
-                        width: 110,
+                        height: h * 0.045,
+                        width: w * 0.25,
                         decoration: BoxDecoration(
                           color: easycolor,
                           borderRadius: BorderRadius.circular(5),
@@ -166,7 +167,7 @@ class _AssingTaskState extends State<AssingTask> {
                               color: easytextcolor,
                               text: "Easy",
                               weight: FontWeight.w500,
-                              size: 15),
+                              size: h * 0.015),
                         ),
                       ),
                     ),
@@ -183,8 +184,8 @@ class _AssingTaskState extends State<AssingTask> {
                         });
                       },
                       child: Container(
-                        height: 40,
-                        width: 110,
+                        height: h * 0.045,
+                        width: w * 0.25,
                         decoration: BoxDecoration(
                           color: mediumcolor,
                           borderRadius: BorderRadius.circular(5),
@@ -195,7 +196,7 @@ class _AssingTaskState extends State<AssingTask> {
                               color: mediumtextcolor,
                               text: "Medium",
                               weight: FontWeight.w500,
-                              size: 15),
+                              size: h * 0.015),
                         ),
                       ),
                     ),
@@ -212,8 +213,8 @@ class _AssingTaskState extends State<AssingTask> {
                         });
                       },
                       child: Container(
-                        height: 40,
-                        width: 110,
+                        height: h * 0.045,
+                        width: w * 0.25,
                         decoration: BoxDecoration(
                           color: hardcolor,
                           borderRadius: BorderRadius.circular(5),
@@ -224,7 +225,7 @@ class _AssingTaskState extends State<AssingTask> {
                               color: hardtextxolor,
                               text: "Hard",
                               weight: FontWeight.w500,
-                              size: 15),
+                              size: h * 0.015),
                         ),
                       ),
                     ),
@@ -233,11 +234,11 @@ class _AssingTaskState extends State<AssingTask> {
                 const SizedBox(
                   height: 20,
                 ),
-                const CustomFont(
+                CustomFont(
                     color: Color.fromARGB(255, 64, 64, 64),
                     text: "Set Task Title*",
                     weight: FontWeight.w400,
-                    size: 15),
+                    size: h * 0.012),
                 const SizedBox(
                   height: 20,
                 ),
@@ -264,11 +265,11 @@ class _AssingTaskState extends State<AssingTask> {
                 const SizedBox(
                   height: 20,
                 ),
-                const CustomFont(
-                    color: Color.fromARGB(255, 64, 64, 64),
+                CustomFont(
+                    color: const Color.fromARGB(255, 64, 64, 64),
                     text: "Task Details*",
                     weight: FontWeight.w400,
-                    size: 15),
+                    size: h * 0.012),
                 const SizedBox(
                   height: 20,
                 ),
@@ -296,11 +297,11 @@ class _AssingTaskState extends State<AssingTask> {
                 const SizedBox(
                   height: 20,
                 ),
-                const CustomFont(
+                CustomFont(
                     color: Color.fromARGB(255, 64, 64, 64),
                     text: "Task Guildlnes*",
                     weight: FontWeight.w400,
-                    size: 15),
+                    size: h * 0.015),
                 const SizedBox(
                   height: 20,
                 ),
