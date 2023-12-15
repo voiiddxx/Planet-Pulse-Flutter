@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
 import 'package:planetpulse/utils/res/snackbar.dart';
@@ -88,7 +89,6 @@ class _CommentScreenState extends State<CommentScreen> {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
-    final h = MediaQuery.of(context).size.height;
     return Container(
       height: 800,
       width: 600,
@@ -156,17 +156,25 @@ class _CommentScreenState extends State<CommentScreen> {
                                     borderRadius: BorderRadius.circular(50),
                                     color: Colors.white),
                               ))
-                          : Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.yellow,
-                                  image: DecorationImage(
-                                      image: NetworkImage(allcomments[index]
-                                              ['user']['userprofile']
-                                          .toString()),
-                                      fit: BoxFit.cover)),
+                          : InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RoutesNames.otherprofile,
+                                    arguments: allcomments[index]['user']
+                                        ['username']);
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.yellow,
+                                    image: DecorationImage(
+                                        image: NetworkImage(allcomments[index]
+                                                ['user']['userprofile']
+                                            .toString()),
+                                        fit: BoxFit.cover)),
+                              ),
                             ),
                       const SizedBox(
                         width: 15,

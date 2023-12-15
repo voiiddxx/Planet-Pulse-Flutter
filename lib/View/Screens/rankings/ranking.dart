@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/providers/authprovider.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
@@ -53,7 +54,6 @@ class RankingScreenState extends State<RankingScreen> {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
-    final user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -107,15 +107,22 @@ class RankingScreenState extends State<RankingScreen> {
                                         borderRadius:
                                             BorderRadius.circular(50)),
                                   ))
-                              : Container(
-                                  height: h * 0.09,
-                                  width: w * 0.2,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          rankingData[1]['userprofile']),
-                                      fit: BoxFit.cover,
+                              : InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RoutesNames.otherprofile,
+                                        arguments: rankingData[1]['username']);
+                                  },
+                                  child: Container(
+                                    height: h * 0.09,
+                                    width: w * 0.2,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            rankingData[1]['userprofile']),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -180,20 +187,26 @@ class RankingScreenState extends State<RankingScreen> {
                                   highlightColor: Colors.white,
                                   child: Container(
                                     height: h * 0.2,
-                                    width: 130,
+                                    width: w * 0.3,
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
+                                        color: Colors.white,
+                                        shape: BoxShape.circle),
                                   ))
-                              : Container(
-                                  height: h * 0.2,
-                                  width: w * 0.3,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          rankingData[0]['userprofile']),
+                              : InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RoutesNames.otherprofile,
+                                        arguments: rankingData[0]['username']);
+                                  },
+                                  child: Container(
+                                    height: h * 0.2,
+                                    width: w * 0.3,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            rankingData[0]['userprofile']),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -238,7 +251,9 @@ class RankingScreenState extends State<RankingScreen> {
                                       .toString(),
                                   weight: FontWeight.w500,
                                   size: 12),
-                          //////////////
+                          const SizedBox(
+                            height: 20,
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -246,7 +261,6 @@ class RankingScreenState extends State<RankingScreen> {
                       ),
                       Column(
                         children: [
-                          //////////////
                           const SizedBox(
                             height: 20,
                           ),
@@ -263,19 +277,25 @@ class RankingScreenState extends State<RankingScreen> {
                                         borderRadius:
                                             BorderRadius.circular(50)),
                                   ))
-                              : Container(
-                                  height: h * 0.09,
-                                  width: w * 0.2,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                          rankingData[2]['userprofile'],
-                                        ),
-                                        fit: BoxFit.cover),
+                              : InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RoutesNames.otherprofile,
+                                        arguments: rankingData[2]['username']);
+                                  },
+                                  child: Container(
+                                    height: h * 0.09,
+                                    width: w * 0.2,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                            rankingData[2]['userprofile'],
+                                          ),
+                                          fit: BoxFit.cover),
+                                    ),
                                   ),
                                 ),
-
                           rankingData == null
                               ? Shimmer.fromColors(
                                   baseColor:
@@ -369,17 +389,26 @@ class RankingScreenState extends State<RankingScreen> {
                                                 color: Colors.white,
                                               ),
                                             ))
-                                        : Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        rankingData[index]
-                                                            ['userprofile'])),
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(30)),
+                                        : InkWell(
+                                            onTap: () {
+                                              Navigator.pushNamed(context,
+                                                  RoutesNames.otherprofile,
+                                                  arguments: rankingData[index]
+                                                      ['username']);
+                                            },
+                                            child: Container(
+                                              height: 50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          rankingData[index]
+                                                              ['userprofile'])),
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30)),
+                                            ),
                                           ),
                                     const SizedBox(
                                       width: 30,

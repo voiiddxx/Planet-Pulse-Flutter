@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:planetpulse/View/Screens/Admin/adminhome/adminhome.dart';
+import 'package:planetpulse/View/Screens/Admin/events/assignevents.dart';
 import 'package:planetpulse/View/Screens/Admin/tasks/assingtask.dart';
 import 'package:planetpulse/View/Screens/rankings/ranking.dart';
 import 'package:planetpulse/View/Screens/verify/approveverify.dart';
@@ -19,7 +20,7 @@ class _AdminBottombarState extends State<AdminBottombar> {
     AdminHomeScreen(),
     ApproveVerificationScreen(),
     AssingTask(),
-    AdminHomeScreen(),
+    AssignEvents(),
     RankingScreen(),
   ];
   @override
@@ -53,8 +54,8 @@ class _AdminBottombarState extends State<AdminBottombar> {
             text: "Assign Weekly Tasks",
           ),
           GButton(
-            icon: Icons.notification_add_outlined,
-            text: "Make an Announcement",
+            icon: Icons.event_rounded,
+            text: "Post Event",
           ),
           GButton(
             icon: Icons.person,

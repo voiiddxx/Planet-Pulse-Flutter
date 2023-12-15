@@ -96,16 +96,23 @@ class _PostCardState extends State<PostCard> {
                             ),
                           ),
                         )
-                      : Container(
-                          height: h * 0.045,
-                          width: w * 0.10,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(widget.userimage),
-                                fit: BoxFit.cover),
-                            color: Colors.red,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(150),
+                      : InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RoutesNames.otherprofile,
+                                arguments: widget.username);
+                          },
+                          child: Container(
+                            height: h * 0.045,
+                            width: w * 0.10,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(widget.userimage),
+                                  fit: BoxFit.cover),
+                              color: const Color.fromARGB(255, 188, 188, 188),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(150),
+                              ),
                             ),
                           ),
                         ),

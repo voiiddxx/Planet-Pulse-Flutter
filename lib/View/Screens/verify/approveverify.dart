@@ -55,7 +55,6 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
-    final user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
@@ -102,7 +101,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                 Expanded(
                   child: getAppliedUser == null
                       ? ListView.builder(
-                          itemCount: 3,
+                          itemCount: 4,
                           itemBuilder: (context, index) {
                             return SizedBox(
                               width: double.infinity,
@@ -268,7 +267,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                                   width: 10,
                                                 ),
                                                 CustomFont(
-                                                    color: Color.fromARGB(
+                                                    color: const Color.fromARGB(
                                                         255, 71, 71, 71),
                                                     text: "Total submited task",
                                                     weight: FontWeight.w600,
@@ -302,7 +301,7 @@ class _ApproveVerificationScreenState extends State<ApproveVerificationScreen> {
                                                   width: 10,
                                                 ),
                                                 CustomFont(
-                                                    color: Color.fromARGB(
+                                                    color: const Color.fromARGB(
                                                         255, 71, 71, 71),
                                                     text:
                                                         "Total weekly completed Task",
