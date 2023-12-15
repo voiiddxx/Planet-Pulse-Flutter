@@ -1,10 +1,18 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+import 'dart:io';
+import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:planetpulse/Routes/routenames.dart';
 import 'package:planetpulse/providers/authprovider.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
+import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,8 +22,61 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  File? profileimage;
+
+  bool isLoadiing = false;
+  selectImage() async {
+    try {
+      final result = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (result != null) {
+        final tempImage = File(result.path);
+        setState(() {
+          profileimage = tempImage;
+        });
+        setState(() {});
+      }
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  updateImageofuser() async {
+    try {
+      showSnackBar(context, "Updating image", Colors.red);
+      Navigator.pop(context);
+      final cloudinary = CloudinaryPublic('dwkmxsthr', 'pdrcp1le');
+      CloudinaryResponse response = await cloudinary.uploadFile(
+        CloudinaryFile.fromFile(profileimage!.path),
+      );
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+      http.Response postresponse = await http.patch(
+          Uri.parse("https://planet-pulse-bphm.onrender.com/update-profile"),
+          body: jsonEncode(
+            {
+              'userprofile': response.secureUrl,
+            },
+          ),
+          headers: <String, String>{
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            'x-auth-token': token!
+          });
+
+      if (postresponse.statusCode == 200) {
+        showSnackBar(context, "Image Updated", Colors.red);
+      }
+    } catch (e) {
+      showSnackBar(context, e.toString(), Colors.red);
+      throw e.toString();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
     final user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       body: Column(
@@ -52,18 +113,136 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
-                            height: 30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: const Color.fromARGB(255, 173, 173, 173),
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                                size: 15,
+                          InkWell(
+                            onTap: () async {
+                              await showModalBottomSheet(
+                                context: context,
+                                builder: (context) => SizedBox(
+                                  height: h * 0.4,
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(
+                                        height: 7,
+                                      ),
+                                      Container(
+                                        height: 10,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 208, 208, 208),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      profileimage != null
+                                          ? Container(
+                                              height: 150,
+                                              width: w * 0.3,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: FileImage(
+                                                          profileimage!),
+                                                      fit: BoxFit.cover),
+                                                  color: const Color.fromARGB(
+                                                      255, 215, 215, 215),
+                                                  shape: BoxShape.circle),
+                                            )
+                                          : Container(
+                                              height: 150,
+                                              width: w * 0.3,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          user.userprofile),
+                                                      fit: BoxFit.cover),
+                                                  color: const Color.fromARGB(
+                                                      255, 215, 215, 215),
+                                                  shape: BoxShape.circle),
+                                            ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        width: w * 0.8,
+                                        decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                                255, 213, 213, 213),
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                selectImage();
+                                              },
+                                              child: const CustomFont(
+                                                  color: Colors.black,
+                                                  text: "Upload photo",
+                                                  weight: FontWeight.w400,
+                                                  size: 11),
+                                            ),
+                                            const CustomFont(
+                                                color: Colors.black,
+                                                text: "|",
+                                                weight: FontWeight.w400,
+                                                size: 11),
+                                            const CustomFont(
+                                                color: Colors.black,
+                                                text: "Select from gallery",
+                                                weight: FontWeight.w400,
+                                                size: 11),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 25,
+                                      ),
+                                      SizedBox(
+                                        height: 50,
+                                        width: w * 0.8,
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  GlobalColor.primarycolor),
+                                          onPressed: () {
+                                            updateImageofuser();
+                                          },
+                                          child: const CustomFont(
+                                              color: Colors.white,
+                                              text: "Update",
+                                              weight: FontWeight.w600,
+                                              size: 14),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: const Color.fromARGB(255, 173, 173, 173),
+                              ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 15,
+                                ),
                               ),
                             ),
                           ),
@@ -192,7 +371,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             height: 20,
           ),
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -298,7 +477,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 50,
                       width: 50,
                       decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 51, 173, 55),
+                          color: const Color.fromARGB(255, 51, 173, 55),
                           borderRadius: BorderRadius.circular(5)),
                       child: const Center(
                         child: Icon(

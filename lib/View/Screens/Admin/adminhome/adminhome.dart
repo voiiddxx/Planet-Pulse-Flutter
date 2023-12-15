@@ -23,6 +23,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           child: Column(
             children: [
               Container(
+                height: MediaQuery.of(context).size.height * 0.3,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
