@@ -8,6 +8,7 @@ import 'package:planetpulse/View/Screens/tasks/task.dart';
 import 'package:planetpulse/View/Screens/userhome/userhome.dart';
 import 'package:planetpulse/View/Screens/verify/verification.dart';
 import 'package:planetpulse/View/Screens/weekly/weeklyscreen.dart';
+import 'package:planetpulse/View/events/eventsscreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _pages = <Widget>[
     UserHomeScreen(),
-    VerificationScreen(),
+    EventsScreen(),
     AddPostScreen(),
     WeeklyScreen(),
     RankingScreen(),

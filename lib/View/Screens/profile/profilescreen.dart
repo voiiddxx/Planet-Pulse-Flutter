@@ -427,38 +427,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 255, 72, 58),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: const Center(
-                        child: Icon(
-                          Icons.ads_click_outlined,
-                          color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, RoutesNames.verificationscreen);
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 255, 72, 58),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: const Center(
+                          child: Icon(
+                            Icons.verified,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    CustomFont(
-                        color: GlobalColor.subtitlecolor,
-                        text: "Become an admin",
-                        weight: FontWeight.w400,
-                        size: 16),
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Icon(
-                      Icons.arrow_right,
-                      color: GlobalColor.headingcolor,
-                      size: 30,
-                    )
-                  ],
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      CustomFont(
+                          color: GlobalColor.subtitlecolor,
+                          text: "Pro Planet Verification",
+                          weight: FontWeight.w400,
+                          size: 16),
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Icon(
+                        Icons.arrow_right,
+                        color: GlobalColor.headingcolor,
+                        size: 30,
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 15,

@@ -18,8 +18,12 @@ class CustomFont extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style:
-          GoogleFonts.manrope(fontSize: size, fontWeight: weight, color: color),
+      overflow: TextOverflow.fade,
+      style: GoogleFonts.manrope(
+        fontSize: size,
+        fontWeight: weight,
+        color: color,
+      ),
     );
   }
 }

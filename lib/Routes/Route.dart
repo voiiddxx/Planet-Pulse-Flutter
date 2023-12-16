@@ -13,6 +13,7 @@ import 'package:planetpulse/View/Screens/profile/profilescreen.dart';
 import 'package:planetpulse/View/Screens/start/splash.dart';
 import 'package:planetpulse/View/Screens/verify/approvemain.dart';
 import 'package:planetpulse/View/Screens/verify/submitverify.dart';
+import 'package:planetpulse/View/Screens/verify/verification.dart';
 
 Route<dynamic> onGenreateSetting(RouteSettings settings) {
   switch (settings.name) {
@@ -77,6 +78,11 @@ Route<dynamic> onGenreateSetting(RouteSettings settings) {
         return OtherProfileScreen(
           otherprofile: username,
         );
+      });
+    case RoutesNames.verificationscreen:
+      return MaterialPageRoute(builder: (context) {
+        // ignore: non_constant_identifier_names
+        return const VerificationScreen();
       });
 
     default:
