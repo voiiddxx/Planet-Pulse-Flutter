@@ -9,6 +9,7 @@ import 'package:planetpulse/utils/font/font.dart';
 import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shimmer/shimmer.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({super.key});
@@ -47,7 +48,6 @@ class _EventsScreenState extends State<EventsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     geteventData(context);
   }
@@ -57,7 +57,7 @@ class _EventsScreenState extends State<EventsScreen> {
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 234, 234, 234),
+      backgroundColor: const Color.fromARGB(255, 232, 232, 232),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 35, 35, 35),
         elevation: 0,
@@ -78,7 +78,6 @@ class _EventsScreenState extends State<EventsScreen> {
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();
               await prefs.remove('x-auth-token');
-              // ignore: use_build_context_synchronously
               Navigator.pushReplacementNamed(context, RoutesNames.loginScreen);
             },
             child: const Icon(
@@ -95,50 +94,73 @@ class _EventsScreenState extends State<EventsScreen> {
         ],
       ),
       body: Padding(
-          padding: const EdgeInsets.all(5),
-          child: Column(
-            children: [
-              Container(
-                height: h * 0.17,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  image: const DecorationImage(
-                      image: AssetImage("assets/images/events.jpg"),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Container(
+              height: h * 0.17,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: const DecorationImage(
+                    image: AssetImage("assets/images/events.jpg"),
+                    fit: BoxFit.cover),
+                borderRadius: BorderRadius.circular(10),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: eventdata.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Container(
-                          height: h * 0.16,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: eventdata == null ? 4 : eventdata.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, RoutesNames.eventDetailScreen,
+                              arguments: eventdata[index]);
+                        },
+                        child: Container(
+                          height: h * 0.2,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: const Color.fromARGB(255, 255, 255, 255),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                Container(
-                                  height: double.infinity,
-                                  width: w * 0.3,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.yellow,
-                                      image: const DecorationImage(
-                                          image: NetworkImage(
-                                              "https://s4x2k6c7.rocketcdn.me/wglz/files/2015/04/Earth-Day-Flyer-page-001.jpg"),
-                                          fit: BoxFit.cover)),
-                                ),
+                                eventdata == null
+                                    ? Shimmer.fromColors(
+                                        baseColor: const Color.fromARGB(
+                                            255, 225, 225, 225),
+                                        highlightColor: Colors.white,
+                                        child: Container(
+                                          height: double.infinity,
+                                          width: w * 0.3,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.white,
+                                          ),
+                                        ))
+                                    : Container(
+                                        height: double.infinity,
+                                        width: w * 0.3,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: const Color.fromARGB(
+                                                255, 22, 22, 22),
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    eventdata[index]
+                                                        ['event_image']),
+                                                fit: BoxFit.cover)),
+                                      ),
                                 const SizedBox(
                                   width: 15,
                                 ),
@@ -150,78 +172,152 @@ class _EventsScreenState extends State<EventsScreen> {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.yellow[100],
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 4),
-                                          child: CustomFont(
-                                              color: GlobalColor.headingcolor,
-                                              text: "5 December 2021",
-                                              weight: FontWeight.w500,
-                                              size: h * 0.012),
-                                        ),
-                                      ),
+                                      eventdata == null
+                                          ? Shimmer.fromColors(
+                                              baseColor: const Color.fromARGB(
+                                                  255, 238, 238, 238),
+                                              highlightColor: Colors.white,
+                                              child: Container(
+                                                height: 10,
+                                                width: w * 0.55,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ))
+                                          : Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.yellow[100],
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10,
+                                                        vertical: 4),
+                                                child: CustomFont(
+                                                    color: GlobalColor
+                                                        .headingcolor,
+                                                    text: eventdata[index]
+                                                        ['event_date'],
+                                                    weight: FontWeight.w500,
+                                                    size: h * 0.012),
+                                              ),
+                                            ),
                                       const SizedBox(
                                         height: 5,
                                       ),
-                                      CustomFont(
-                                          color: const Color.fromARGB(
-                                              255, 99, 99, 99),
-                                          text:
-                                              "Green Enviroment Mission India 2023",
-                                          weight: FontWeight.w900,
-                                          size: h * 0.020),
+                                      eventdata == null
+                                          ? Shimmer.fromColors(
+                                              baseColor: const Color.fromARGB(
+                                                  255, 238, 238, 238),
+                                              highlightColor: Colors.white,
+                                              child: Container(
+                                                height: 25,
+                                                width: w * 0.55,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ))
+                                          : CustomFont(
+                                              color: GlobalColor.headingcolor,
+                                              text: eventdata[index]
+                                                  ['event_title'],
+                                              weight: FontWeight.w900,
+                                              size: h * 0.020),
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            height: 25,
-                                            width: 25,
-                                            decoration: BoxDecoration(
-                                                color: Colors.blue[100],
-                                                borderRadius:
-                                                    BorderRadius.circular(7)),
-                                            child: const Icon(
-                                              Icons.location_on,
-                                              color: Colors.black,
-                                              size: 15,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          CustomFont(
-                                              color: const Color.fromARGB(
-                                                  255, 1, 103, 186),
+                                      eventdata == null
+                                          ? Shimmer.fromColors(
+                                              baseColor: const Color.fromARGB(
+                                                  255, 238, 238, 238),
+                                              highlightColor: Colors.white,
+                                              child: Container(
+                                                height: 35,
+                                                width: w * 0.55,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ))
+                                          : CustomFont(
+                                              color: GlobalColor.headingcolor,
                                               text:
-                                                  "Save The Planet Organization",
-                                              weight: FontWeight.w600,
-                                              size: h * 0.014)
-                                        ],
-                                      )
+                                                  "This is the text which is eneterd now just for testing purpose will replace it with the dynamic",
+                                              weight: FontWeight.w300,
+                                              size: h * 0.012),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      eventdata == null
+                                          ? Shimmer.fromColors(
+                                              baseColor: const Color.fromARGB(
+                                                  255, 238, 238, 238),
+                                              highlightColor: Colors.white,
+                                              child: Container(
+                                                height: 25,
+                                                width: w * 0.55,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ))
+                                          : Row(
+                                              children: [
+                                                Container(
+                                                  height: 25,
+                                                  width: 25,
+                                                  decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                        255, 31, 31, 31),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            7),
+                                                  ),
+                                                  child: const Icon(
+                                                    Icons.location_on,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                CustomFont(
+                                                    color: const Color.fromARGB(
+                                                        255, 1, 98, 177),
+                                                    text: eventdata[index]
+                                                        ['event_location'],
+                                                    weight: FontWeight.w600,
+                                                    size: h * 0.014)
+                                              ],
+                                            ),
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        )
-                      ],
-                    );
-                  },
-                ),
-              )
-            ],
-          )),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -14,6 +14,7 @@ import 'package:planetpulse/View/Screens/start/splash.dart';
 import 'package:planetpulse/View/Screens/verify/approvemain.dart';
 import 'package:planetpulse/View/Screens/verify/submitverify.dart';
 import 'package:planetpulse/View/Screens/verify/verification.dart';
+import 'package:planetpulse/View/events/eventdetails.dart';
 
 Route<dynamic> onGenreateSetting(RouteSettings settings) {
   switch (settings.name) {
@@ -83,6 +84,14 @@ Route<dynamic> onGenreateSetting(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) {
         // ignore: non_constant_identifier_names
         return const VerificationScreen();
+      });
+    case RoutesNames.eventDetailScreen:
+      return MaterialPageRoute(builder: (context) {
+        var eventDetail = settings.arguments as dynamic;
+        // ignore: non_constant_identifier_names
+        return EventDetailScreen(
+          eventDetail: eventDetail,
+        );
       });
 
     default:

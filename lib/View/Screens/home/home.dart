@@ -9,6 +9,7 @@ import 'package:planetpulse/View/Screens/userhome/userhome.dart';
 import 'package:planetpulse/View/Screens/verify/verification.dart';
 import 'package:planetpulse/View/Screens/weekly/weeklyscreen.dart';
 import 'package:planetpulse/View/events/eventsscreen.dart';
+import 'package:planetpulse/utils/colors/color.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,12 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
         textSize: 10,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 5),
-        activeColor: const Color.fromARGB(255, 39, 39, 39),
+        activeColor: GlobalColor.primarycolor,
         curve: Curves.easeInCirc,
         hoverColor: const Color.fromARGB(149, 54, 54, 54),
         textStyle: GoogleFonts.lato(
             fontWeight: FontWeight.w400,
-            color: const Color.fromARGB(255, 79, 79, 79),
+            color: GlobalColor.primarycolor,
             fontSize: 12,
             letterSpacing: 0.2),
         gap: 2,
@@ -49,8 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
             text: "Home",
           ),
           GButton(
-            icon: Icons.verified,
-            text: "Pro Planet Verification",
+            icon: Icons.event_available_sharp,
+            text: "Events",
           ),
           GButton(
             icon: Icons.add_circle_outline_sharp,
