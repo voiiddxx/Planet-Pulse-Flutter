@@ -6,6 +6,7 @@ import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:planetpulse/Routes/routenames.dart';
+import 'package:planetpulse/View/components/textfield/textfiled.dart';
 import 'package:planetpulse/providers/authprovider.dart';
 import 'package:planetpulse/utils/colors/color.dart';
 import 'package:planetpulse/utils/font/font.dart';
@@ -13,6 +14,8 @@ import 'package:planetpulse/utils/res/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+
+final scaffoldState = GlobalKey<ScaffoldState>();
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -22,6 +25,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final TextEditingController addresscontroller = TextEditingController();
   File? profileimage;
 
   bool isLoadiing = false;
@@ -79,6 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final w = MediaQuery.of(context).size.width;
     final user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
+      key: scaffoldState,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -383,38 +388,143 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                Row(
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                          color: GlobalColor.primarycolor,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: const Center(
-                        child: Icon(
-                          Icons.auto_awesome_sharp,
+                InkWell(
+                  onTap: () {
+                    scaffoldState.currentState!.showBottomSheet(
+                      (context) => Container(
+                        height: 800,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
                           color: Colors.white,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              height: 8,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            CustomFont(
+                                color: GlobalColor.headingcolor,
+                                text: "Apply for admin",
+                                weight: FontWeight.w700,
+                                size: h * 0.018),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            CustomFont(
+                                color: GlobalColor.headingcolor,
+                                text: "Please fill the correct imformantion",
+                                weight: FontWeight.w500,
+                                size: h * 0.016),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 65,
+                                  width: 65,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      image: DecorationImage(
+                                          image:
+                                              NetworkImage(user.userprofile)),
+                                      borderRadius: BorderRadius.circular(100)),
+                                ),
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomFont(
+                                        color: GlobalColor.headingcolor,
+                                        text: user.username,
+                                        weight: FontWeight.w400,
+                                        size: h * .016),
+                                    CustomFont(
+                                        color: GlobalColor.headingcolor,
+                                        text: user.email,
+                                        weight: FontWeight.w400,
+                                        size: h * .016),
+                                  ],
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomFont(
+                                      color: GlobalColor.headingcolor,
+                                      text: "Permanent address",
+                                      weight: FontWeight.w400,
+                                      size: h * 0.014),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  customTextFiled(
+                                      controller: addresscontroller,
+                                      hinttext: "Permanent address",
+                                      icon: Icon(Icons.location_on),
+                                      obscure: false)
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    CustomFont(
-                        color: GlobalColor.subtitlecolor,
-                        text: "Become an admin",
-                        weight: FontWeight.w400,
-                        size: 16),
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Icon(
-                      Icons.arrow_right,
-                      color: GlobalColor.headingcolor,
-                      size: 30,
-                    )
-                  ],
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            color: GlobalColor.primarycolor,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: const Center(
+                          child: Icon(
+                            Icons.auto_awesome_sharp,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      CustomFont(
+                          color: GlobalColor.subtitlecolor,
+                          text: "Become an admin",
+                          weight: FontWeight.w400,
+                          size: 16),
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Icon(
+                        Icons.arrow_right,
+                        color: GlobalColor.headingcolor,
+                        size: 30,
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 15,

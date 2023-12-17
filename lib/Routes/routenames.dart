@@ -13,4 +13,5 @@ class RoutesNames {
   static const String otherprofile = "otherprofile";
   static const String verificationscreen = "verificationscreen";
   static const String eventDetailScreen = "eventdetailScreen";
+  static const String applyadminscreen = "applyadminscreen";
 }

@@ -6,6 +6,7 @@ import 'package:planetpulse/View/Screens/Admin/adminbottomnavbar.dart';
 import 'package:planetpulse/View/Screens/Admin/tasks/approveweekly.dart';
 import 'package:planetpulse/View/Screens/Auth/login.dart';
 import 'package:planetpulse/View/Screens/Auth/register.dart';
+import 'package:planetpulse/View/Screens/applyadmin/applyadmin.dart';
 import 'package:planetpulse/View/Screens/comments/commentscreen.dart';
 import 'package:planetpulse/View/Screens/home/home.dart';
 import 'package:planetpulse/View/Screens/profile/otherprofile.dart';
@@ -92,6 +93,11 @@ Route<dynamic> onGenreateSetting(RouteSettings settings) {
         return EventDetailScreen(
           eventDetail: eventDetail,
         );
+      });
+    case RoutesNames.applyadminscreen:
+      return MaterialPageRoute(builder: (context) {
+        // ignore: non_constant_identifier_names
+        return const ApplyforAdminScreen();
       });
 
     default:
