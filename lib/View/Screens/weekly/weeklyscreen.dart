@@ -15,9 +15,8 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
-    final w = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(240, 240, 240, 1),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         backgroundColor: GlobalColor.primarycolor,
         elevation: 0,
@@ -49,8 +48,8 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
               CustomFont(
                   color: GlobalColor.headingcolor,
                   text: "Weekly Tasks",
-                  weight: FontWeight.w600,
-                  size: h * 0.025),
+                  weight: FontWeight.bold,
+                  size: h * 0.019),
               const SizedBox(
                 height: 10,
               ),
@@ -61,257 +60,97 @@ class _WeeklyScreenState extends State<WeeklyScreen> {
                   weight: FontWeight.w400,
                   size: h * 0.014),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
-              Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    taskLevel = "Easy";
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ExploreWeeklyTrask(tasklevel: taskLevel!);
+                      },
+                    ),
+                  );
+                },
+                child: Container(
+                  height: h * 0.32,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/task.jpg"),
+                        fit: BoxFit.cover),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.09,
-                            width: MediaQuery.of(context).size.width * 0.22,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Icon(
-                              Icons.model_training_sharp,
-                              color: Colors.white,
-                              size: 40,
-                            ),
-                          ),
-                          SizedBox(
-                            width: w * 0.5,
-                            child: CustomFont(
-                                color: Color.fromARGB(255, 75, 75, 75),
-                                text:
-                                    "Gift Your Friends a paper bag and try to motivate them to use paper bag instead of using plastic bags",
-                                weight: FontWeight.w500,
-                                size: h * 0.015),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: h * 0.07,
-                        width: double.infinity,
-                        child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.green,
-                              side: const BorderSide(color: Colors.green),
-                              shape: ContinuousRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              elevation: 0,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                taskLevel = "easy";
-                              });
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return ExploreWeeklyTrask(
-                                        tasklevel: taskLevel!);
-                                  },
-                                ),
-                              );
-                            },
-                            // ignore: prefer_const_constructors
-                            child: CustomFont(
-                                color: Colors.green,
-                                text: "Complete",
-                                weight: FontWeight.bold,
-                                size: 14)),
-                      )
-                    ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    taskLevel = "Medium";
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ExploreWeeklyTrask(tasklevel: taskLevel!);
+                      },
+                    ),
+                  );
+                },
+                child: Container(
+                  height: h * 0.32,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/medium.jpg"),
+                        fit: BoxFit.cover),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    taskLevel = "Hard";
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ExploreWeeklyTrask(tasklevel: taskLevel!);
+                      },
+                    ),
+                  );
+                },
+                child: Container(
+                  height: h * 0.32,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/hard.jpg"),
+                        fit: BoxFit.cover),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
                   ),
                 ),
               ),
               const SizedBox(
                 height: 25,
-              ),
-              Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.09,
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 206, 185, 0),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Icon(
-                              Icons.work_history_rounded,
-                              color: Colors.white,
-                              size: 40,
-                            ),
-                          ),
-                          SizedBox(
-                            width: w * 0.5,
-                            child: CustomFont(
-                                color: Color.fromARGB(255, 75, 75, 75),
-                                text:
-                                    "Gift Your Friends a paper bag and try to motivate them to use paper bag instead of using plastic bags",
-                                weight: FontWeight.w500,
-                                size: h * 0.015),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Color.fromARGB(255, 206, 185, 0),
-                              side: const BorderSide(
-                                  color: Color.fromARGB(255, 206, 185, 0)),
-                              shape: ContinuousRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              elevation: 0,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                taskLevel = "Medium";
-                              });
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return ExploreWeeklyTrask(
-                                        tasklevel: taskLevel!);
-                                  },
-                                ),
-                              );
-                            },
-                            // ignore: prefer_const_constructors
-                            child: CustomFont(
-                                color: Color.fromARGB(255, 206, 185, 0),
-                                text: "Complete",
-                                weight: FontWeight.bold,
-                                size: 14)),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.09,
-                            width: MediaQuery.of(context).size.width * 0.22,
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Icon(
-                              Icons.hotel_class_rounded,
-                              color: Colors.white,
-                              size: 40,
-                            ),
-                          ),
-                          SizedBox(
-                            width: w * 0.5,
-                            child: CustomFont(
-                                color: Color.fromARGB(255, 75, 75, 75),
-                                text:
-                                    "Gift Your Friends a paper bag and try to motivate them to use paper bag instead of using plastic bags",
-                                weight: FontWeight.w500,
-                                size: h * 0.015),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.red,
-                              side: const BorderSide(color: Colors.red),
-                              shape: ContinuousRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              elevation: 0,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                taskLevel = "Hard";
-                              });
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return ExploreWeeklyTrask(
-                                        tasklevel: taskLevel!);
-                                  },
-                                ),
-                              );
-                            },
-                            // ignore: prefer_const_constructors
-                            child: CustomFont(
-                                color: Colors.red,
-                                text: "Complete",
-                                weight: FontWeight.bold,
-                                size: 14)),
-                      )
-                    ],
-                  ),
-                ),
               ),
             ],
           ),

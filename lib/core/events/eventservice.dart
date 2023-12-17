@@ -15,16 +15,19 @@ class EventService {
       required String event_date,
       required String event_link,
       required String event_image,
-      required String event_location}) async {
+      required String event_location,
+      required String additinols_details}) async {
     try {
       EventModel eventModel = EventModel(
-          event_title: event_title,
-          event_details: event_details,
-          event_organization: event_organization,
-          event_date: event_date,
-          event_link: event_link,
-          event_image: event_image,
-          event_location: event_location);
+        event_title: event_title,
+        event_details: event_details,
+        event_organization: event_organization,
+        event_date: event_date,
+        event_link: event_link,
+        event_image: event_image,
+        event_location: event_location,
+        additinols_details: additinols_details,
+      );
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
       http.Response response = await http.post(

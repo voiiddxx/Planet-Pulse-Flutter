@@ -28,6 +28,8 @@ class _AssignEventsState extends State<AssignEvents> {
   final TextEditingController eventdatecontroller = TextEditingController();
   final TextEditingController eventlinkcontroller = TextEditingController();
   final TextEditingController eventlocationcontroller = TextEditingController();
+  final TextEditingController eventadditiniolsdetailcontroller =
+      TextEditingController();
   final EventService eventService = EventService();
 
   File? eventimage;
@@ -66,6 +68,7 @@ class _AssignEventsState extends State<AssignEvents> {
         event_link: eventlinkcontroller.text.trim(),
         event_image: response.secureUrl,
         event_location: eventlocationcontroller.text.trim(),
+        additinols_details: eventadditiniolsdetailcontroller.text.trim(),
       );
       setState(() {
         isLoadiing = false;
@@ -87,6 +90,7 @@ class _AssignEventsState extends State<AssignEvents> {
     eventdatecontroller.dispose();
     eventlocationcontroller.dispose();
     eventlinkcontroller.dispose();
+    eventadditiniolsdetailcontroller.dispose();
   }
 
   @override
@@ -137,182 +141,194 @@ class _AssignEventsState extends State<AssignEvents> {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomFont(
-                        color: GlobalColor.headingcolor,
-                        text: "Create Event",
-                        weight: FontWeight.w700,
-                        size: h * 0.018),
-                    SizedBox(
-                      height: h * 0.005,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomFont(
+                      color: GlobalColor.headingcolor,
+                      text: "Create Event",
+                      weight: FontWeight.w700,
+                      size: h * 0.018),
+                  SizedBox(
+                    height: h * 0.005,
+                  ),
+                  CustomFont(
+                      color: GlobalColor.headingcolor,
+                      text:
+                          "Create event or post event so that more people will know about event and it become so grand",
+                      weight: FontWeight.w400,
+                      size: h * 0.014),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextField(
+                    controller: eventnamecontroller,
+                    decoration: InputDecoration(
+                        focusedBorder: InputBorder.none,
+                        hintText: "Title of event",
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                        ),
+                        hintStyle: GoogleFonts.manrope(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            color: Colors.grey)),
+                  ),
+                  TextField(
+                    controller: eventdetailcontroller,
+                    decoration: InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      hintText: "Event Details",
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      hintStyle: GoogleFonts.manrope(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.grey),
                     ),
-                    CustomFont(
-                        color: GlobalColor.headingcolor,
-                        text:
-                            "Create event or post event so that more people will know about event and it become so grand",
-                        weight: FontWeight.w400,
-                        size: h * 0.014),
-                    const SizedBox(
-                      height: 15,
+                  ),
+                  TextField(
+                    controller: eventorganizationcontroller,
+                    decoration: InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      hintText: "Oraganization name",
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      hintStyle: GoogleFonts.manrope(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.grey),
                     ),
-                    TextField(
-                      controller: eventnamecontroller,
-                      decoration: InputDecoration(
-                          focusedBorder: InputBorder.none,
-                          hintText: "Title of event",
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
+                  ),
+                  TextField(
+                    controller: eventdatecontroller,
+                    decoration: InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      hintText: "5 August 2014",
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      hintStyle: GoogleFonts.manrope(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.grey),
+                    ),
+                  ),
+                  TextField(
+                    controller: eventlinkcontroller,
+                    decoration: InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      hintText: "Paste Event Link",
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      hintStyle: GoogleFonts.manrope(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.grey),
+                    ),
+                  ),
+                  TextField(
+                    controller: eventlocationcontroller,
+                    decoration: InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      hintText: "Online/offile",
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      hintStyle: GoogleFonts.manrope(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.grey),
+                    ),
+                  ),
+                  TextField(
+                    controller: eventadditiniolsdetailcontroller,
+                    decoration: InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      hintText: "event additinols details",
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      hintStyle: GoogleFonts.manrope(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.grey),
+                    ),
+                  ),
+                  eventimage != null
+                      ? Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  image: FileImage(eventimage!),
+                                  fit: BoxFit.cover)),
+                        )
+                      : const SizedBox(),
+                  SizedBox(
+                    height: h * 0.05,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      selectImage();
+                    },
+                    child: Container(
+                      height: 50,
+                      width: w * 0.4,
+                      decoration: BoxDecoration(
+                        color: GlobalColor.primarycolor,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.image,
+                            color: Colors.white,
                           ),
-                          hintStyle: GoogleFonts.manrope(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: Colors.grey)),
-                    ),
-                    TextField(
-                      controller: eventdetailcontroller,
-                      decoration: InputDecoration(
-                        focusedBorder: InputBorder.none,
-                        hintText: "Event Details",
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                        hintStyle: GoogleFonts.manrope(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Colors.grey),
-                      ),
-                    ),
-                    TextField(
-                      controller: eventorganizationcontroller,
-                      decoration: InputDecoration(
-                        focusedBorder: InputBorder.none,
-                        hintText: "Oraganization name",
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                        hintStyle: GoogleFonts.manrope(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Colors.grey),
-                      ),
-                    ),
-                    TextField(
-                      controller: eventdatecontroller,
-                      decoration: InputDecoration(
-                        focusedBorder: InputBorder.none,
-                        hintText: "5 August 2014",
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                        hintStyle: GoogleFonts.manrope(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Colors.grey),
-                      ),
-                    ),
-                    TextField(
-                      controller: eventlinkcontroller,
-                      decoration: InputDecoration(
-                        focusedBorder: InputBorder.none,
-                        hintText: "Paste Event Link",
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                        hintStyle: GoogleFonts.manrope(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Colors.grey),
-                      ),
-                    ),
-                    TextField(
-                      controller: eventlocationcontroller,
-                      decoration: InputDecoration(
-                        focusedBorder: InputBorder.none,
-                        hintText: "Online/Bathinda,India",
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        ),
-                        hintStyle: GoogleFonts.manrope(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Colors.grey),
-                      ),
-                    ),
-                    eventimage != null
-                        ? Container(
-                            height: 100,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                    image: FileImage(eventimage!),
-                                    fit: BoxFit.cover)),
-                          )
-                        : const SizedBox(),
-                    SizedBox(
-                      height: h * 0.15,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        selectImage();
-                      },
-                      child: Container(
-                        height: 50,
-                        width: w * 0.4,
-                        decoration: BoxDecoration(
-                          color: GlobalColor.primarycolor,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.image,
+                          const SizedBox(
+                            width: 7,
+                          ),
+                          CustomFont(
                               color: Colors.white,
-                            ),
-                            const SizedBox(
-                              width: 7,
-                            ),
-                            CustomFont(
-                                color: Colors.white,
-                                text: "Upload banner",
-                                weight: FontWeight.w500,
-                                size: h * 0.013),
-                          ],
-                        ),
+                              text: "Upload banner",
+                              weight: FontWeight.w500,
+                              size: h * 0.013),
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    SizedBox(
-                        height: 50,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: GlobalColor.primarycolor,
-                              elevation: 0),
-                          onPressed: () {
-                            uploadevent();
-                          },
-                          child: isLoadiing == true
-                              ? const Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : CustomFont(
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: GlobalColor.primarycolor,
+                            elevation: 0),
+                        onPressed: () {
+                          uploadevent();
+                        },
+                        child: isLoadiing == true
+                            ? const Center(
+                                child: CircularProgressIndicator(
                                   color: Colors.white,
-                                  text: "Create Event",
-                                  weight: FontWeight.w700,
-                                  size: h * 0.015),
-                        )),
-                  ],
-                ),
+                                ),
+                              )
+                            : CustomFont(
+                                color: Colors.white,
+                                text: "Create Event",
+                                weight: FontWeight.w700,
+                                size: h * 0.015),
+                      )),
+                ],
               ),
             ),
           ),

@@ -9,6 +9,7 @@ class EventModel {
   final String event_link;
   final String event_image;
   final String event_location;
+  final String additinols_details;
   EventModel({
     required this.event_title,
     required this.event_details,
@@ -17,6 +18,7 @@ class EventModel {
     required this.event_link,
     required this.event_image,
     required this.event_location,
+    required this.additinols_details,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,6 +30,7 @@ class EventModel {
       'event_link': event_link,
       'event_image': event_image,
       'event_location': event_location,
+      'additinols_details': additinols_details,
     };
   }
 
@@ -40,6 +43,7 @@ class EventModel {
       event_link: map['event_link'] as String,
       event_image: map['event_image'] as String,
       event_location: map['event_location'] as String,
+      additinols_details: map['additinols_details'] as String,
     );
   }
 

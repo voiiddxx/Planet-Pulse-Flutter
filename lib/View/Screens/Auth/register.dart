@@ -22,6 +22,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController companycontroller = TextEditingController();
 
   final AuthService authService = AuthService();
   @override
@@ -85,6 +86,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       size: 20,
                       color: Color.fromARGB(255, 59, 59, 59),
                     )),
+                const SizedBox(
+                  height: 20,
+                ),
+                customTextFiled(
+                    obscure: false,
+                    controller: companycontroller,
+                    hinttext: "Company/College/Organization",
+                    icon: const Icon(
+                      Icons.lock_outline_sharp,
+                      size: 20,
+                      color: Color.fromARGB(255, 59, 59, 59),
+                    )),
               ],
             ),
           ),
@@ -107,12 +120,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         isLoading = true;
                       });
                       dynamic data = await auth.registeruser(
-                          username: usernameController.text,
-                          email: emailController.text,
-                          password: passwordController.text);
+                        username: usernameController.text,
+                        email: emailController.text,
+                        password: passwordController.text,
+                        company: companycontroller.text.trim(),
+                      );
 
                       if (data == 200) {
-                        // ignore: use_build_context_synchronously
                         Navigator.pushNamed(context, RoutesNames.loginScreen);
                         showSnackBar(context, "Account Created", Colors.green);
                       } else {

@@ -6,6 +6,7 @@ class User {
   final String email;
   final int pro_planet_level;
   final String password;
+  final String company;
   List<dynamic>? post;
   final int pro_planet_rating;
   final int total_completed_task;
@@ -18,6 +19,7 @@ class User {
     required this.email,
     required this.pro_planet_level,
     required this.password,
+    required this.company,
     this.post,
     required this.pro_planet_rating,
     required this.total_completed_task,

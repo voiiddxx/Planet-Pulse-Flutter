@@ -22,7 +22,8 @@ class AuthProvider extends ChangeNotifier {
       pro_planet_rating: 0,
       total_completed_task: 0,
       category: '',
-      ques: []);
+      ques: [],
+      company: '');
 
   User get user => _user;
 
@@ -45,17 +46,19 @@ class AuthProvider extends ChangeNotifier {
         final Map<String, dynamic> userData = jsonDecode(response.body);
         await preferences.setString('x-auth-token', userData['token']);
         _user = User(
-            id: userData['_id'],
-            username: userData['username'],
-            userprofile: userData['userprofile'],
-            email: userData['email'],
-            password: userData['password'],
-            pro_planet_level: userData['pro_planet_level'],
-            post: userData['post'],
-            pro_planet_rating: userData['pro_planet_rating'],
-            total_completed_task: userData['total_completed_task'],
-            category: userData['category'],
-            ques: userData['ques']);
+          id: userData['_id'],
+          username: userData['username'],
+          userprofile: userData['userprofile'],
+          email: userData['email'],
+          password: userData['password'],
+          pro_planet_level: userData['pro_planet_level'],
+          post: userData['post'],
+          pro_planet_rating: userData['pro_planet_rating'],
+          total_completed_task: userData['total_completed_task'],
+          category: userData['category'],
+          ques: userData['ques'],
+          company: userData['company'],
+        );
         return response.statusCode;
       }
     } catch (e) {
@@ -68,13 +71,17 @@ class AuthProvider extends ChangeNotifier {
   Future<dynamic> registeruser(
       {required String username,
       required String email,
-      required String password}) async {
+      required String password,
+      required String company}) async {
     try {
       print(username);
       print(email);
       print(password);
-      RegisterUser registerUser =
-          RegisterUser(username: username, email: email, password: password);
+      RegisterUser registerUser = RegisterUser(
+          username: username,
+          email: email,
+          password: password,
+          company: company);
       http.Response response = await http.post(
           Uri.parse("https://planet-pulse-bphm.onrender.com/register"),
           body: registerUser.toJson(),
@@ -108,17 +115,19 @@ class AuthProvider extends ChangeNotifier {
         if (response.statusCode == 200) {
           Map<String, dynamic> userData = jsonDecode(response.body);
           _user = User(
-              id: userData['_id'],
-              username: userData['username'],
-              userprofile: userData['userprofile'],
-              email: userData['email'],
-              password: userData['password'],
-              pro_planet_level: userData['pro_planet_level'],
-              post: userData['post'],
-              pro_planet_rating: userData['pro_planet_rating'],
-              total_completed_task: userData['total_completed_task'],
-              category: userData['category'],
-              ques: userData['ques']);
+            id: userData['_id'],
+            username: userData['username'],
+            userprofile: userData['userprofile'],
+            email: userData['email'],
+            password: userData['password'],
+            pro_planet_level: userData['pro_planet_level'],
+            post: userData['post'],
+            pro_planet_rating: userData['pro_planet_rating'],
+            total_completed_task: userData['total_completed_task'],
+            category: userData['category'],
+            ques: userData['ques'],
+            company: userData['company'],
+          );
 
           if (context.mounted) {
             if (userData['category'] == 'admin') {
