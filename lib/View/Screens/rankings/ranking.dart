@@ -115,7 +115,7 @@ class RankingScreenState extends State<RankingScreen> {
                                   },
                                   child: Container(
                                     height: h * 0.09,
-                                    width: w * 0.2,
+                                    width: w * 0.15,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       image: DecorationImage(
@@ -257,7 +257,7 @@ class RankingScreenState extends State<RankingScreen> {
                         ],
                       ),
                       const SizedBox(
-                        width: 30,
+                        width: 20,
                       ),
                       Column(
                         children: [
@@ -347,7 +347,7 @@ class RankingScreenState extends State<RankingScreen> {
 
           ///====================ALL container for showing the rankings==========//
           Container(
-            height: MediaQuery.of(context).size.height * 0.44,
+            height: MediaQuery.of(context).size.height * 0.43,
             width: double.infinity,
             decoration: const BoxDecoration(
               color: Colors.white,

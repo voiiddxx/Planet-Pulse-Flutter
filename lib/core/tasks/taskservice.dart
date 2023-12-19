@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, non_constant_identifier_names
+// ignore_for_file: avoid_print, non_constant_identifier_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:planetpulse/models/approveweeklyresponse.dart';
@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class TaskService {
-  Future<void> submitTask(
+  Future<dynamic> submitTask(
       {required dynamic task,
       required dynamic image,
       required String extradetail,
@@ -47,7 +47,11 @@ class TaskService {
           'x-auth-token': token!
         },
       );
-      print(response.body);
+      if (response.statusCode == 200) {
+        return response.statusCode;
+      } else {
+        showSnackBar(context, response.body, Colors.yellow);
+      }
     } catch (e) {
       throw e.toString();
     }

@@ -123,7 +123,7 @@ class _EventsScreenState extends State<EventsScreen> {
                               arguments: eventdata[index]);
                         },
                         child: Container(
-                          height: h * 0.2,
+                          height: h * 0.35,
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: const Color.fromARGB(255, 255, 255, 255),

@@ -62,7 +62,7 @@ class _ExploreWeeklyTraskState extends State<ExploreWeeklyTrask> {
       String? token = prefs.getString('x-auth-token');
       http.Response response = await http.get(
           Uri.parse(
-              "https://planet-pulse-bphm.onrender.com/get-category-task?task_level=$category"),
+              "https://planet-pulse-bphm.onrender.com/get-category-task?task_level=${widget.tasklevel}"),
           headers: <String, String>{
             "Content-type": "application/json",
             "Accept": "application/json",
@@ -170,32 +170,70 @@ class _ExploreWeeklyTraskState extends State<ExploreWeeklyTrask> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        taskData == null
-                            ? Shimmer.fromColors(
-                                baseColor:
-                                    const Color.fromARGB(255, 204, 204, 204),
-                                highlightColor: Colors.white,
-                                child: Container(
-                                  height: h * 0.020,
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(15)),
-                                ),
-                              )
-                            : Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[100],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: CustomFont(
-                                      color: GlobalColor.headingcolor,
-                                      text: "Task Deadline: 1 Week",
-                                      weight: FontWeight.w500,
-                                      size: h * 0.012),
-                                ),
-                              ),
+                        Row(
+                          children: [
+                            taskData == null
+                                ? Shimmer.fromColors(
+                                    baseColor: const Color.fromARGB(
+                                        255, 204, 204, 204),
+                                    highlightColor: Colors.white,
+                                    child: Container(
+                                      height: h * 0.020,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                    ),
+                                  )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.yellow[100],
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CustomFont(
+                                          color: GlobalColor.headingcolor,
+                                          text: "Task Deadline: 1 Week",
+                                          weight: FontWeight.w500,
+                                          size: h * 0.012),
+                                    ),
+                                  ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            taskData == null
+                                ? Shimmer.fromColors(
+                                    baseColor: const Color.fromARGB(
+                                        255, 204, 204, 204),
+                                    highlightColor: Colors.white,
+                                    child: Container(
+                                      height: h * 0.020,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                    ),
+                                  )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.red[100],
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: CustomFont(
+                                          color: GlobalColor.headingcolor,
+                                          text:
+                                              "Task Level: ${widget.tasklevel}",
+                                          weight: FontWeight.w500,
+                                          size: h * 0.012),
+                                    ),
+                                  ),
+                          ],
+                        ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -525,8 +563,7 @@ class _ExploreWeeklyTraskState extends State<ExploreWeeklyTrask> {
                               )
                             : CustomFont(
                                 color: GlobalColor.subtitlecolor,
-                                text:
-                                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta minus molestiae vel beatae natus eveniet ratione temporibus aperiam harum alias officiis assumenda officia quibusdam deleniti eos cupiditate dolore doloribus >Ad dolore dignissimos",
+                                text: taskData['task_guidlines'],
                                 weight: FontWeight.w400,
                                 size: h * 0.016),
                         const SizedBox(

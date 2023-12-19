@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:io';
 
@@ -20,26 +20,37 @@ class SubmitTaskScreen extends StatefulWidget {
 }
 
 class _SubmitTaskScreenState extends State<SubmitTaskScreen> {
+  bool isLoading = false;
   final TextEditingController taskdetailcontroller = TextEditingController();
 
   final TaskService taskService = TaskService();
 
   void postData() async {
     try {
+      setState(() {
+        isLoading = true;
+      });
       final cloudinary = CloudinaryPublic('dwkmxsthr', 'pdrcp1le');
       CloudinaryResponse response = await cloudinary.uploadFile(
         CloudinaryFile.fromFile(widget.imagetosubmit.path),
       );
-      // ignore: use_build_context_synchronously
-      showSnackBar(context, response.secureUrl, Colors.yellow);
 
-      // ignore: use_build_context_synchronously
-      taskService.submitTask(
+      showSnackBar(context, response.secureUrl, Colors.yellow);
+      dynamic data = await taskService.submitTask(
           task: widget.task,
           image: response.secureUrl,
           extradetail: taskdetailcontroller.text.trim(),
           context: context);
-      // ignore: use_build_context_synchronously
+
+      if (data == 200) {
+        isLoading = false;
+        showSnackBar(
+            context, "Task Submitted wait for admin approval", Colors.yellow);
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+      }
     } catch (e) {
       if (context.mounted) {
         print(e.toString());
@@ -51,6 +62,7 @@ class _SubmitTaskScreenState extends State<SubmitTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromRGBO(240, 240, 240, 1),
       appBar: AppBar(
         backgroundColor: GlobalColor.primarycolor,
@@ -87,7 +99,7 @@ class _SubmitTaskScreenState extends State<SubmitTaskScreen> {
               height: 15,
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.8,
+              height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -96,7 +108,7 @@ class _SubmitTaskScreenState extends State<SubmitTaskScreen> {
                 child: Column(
                   children: [
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.3,
+                      height: MediaQuery.of(context).size.height * 0.4,
                       width: double.infinity,
                       decoration: BoxDecoration(
                           image: DecorationImage(
@@ -127,11 +139,17 @@ class _SubmitTaskScreenState extends State<SubmitTaskScreen> {
                             elevation: 0,
                             shape: ContinuousRectangleBorder(
                                 borderRadius: BorderRadius.circular(15))),
-                        child: const CustomFont(
-                            color: Colors.white,
-                            text: "Submit",
-                            weight: FontWeight.w500,
-                            size: 15),
+                        child: isLoading == true
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const CustomFont(
+                                color: Colors.white,
+                                text: "Submit",
+                                weight: FontWeight.w500,
+                                size: 15),
                       ),
                     ),
                   ],

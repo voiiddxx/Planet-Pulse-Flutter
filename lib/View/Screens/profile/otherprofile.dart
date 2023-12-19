@@ -55,6 +55,7 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,13 +124,12 @@ class _OtherProfileScreenState extends State<OtherProfileScreen> {
                                       color: Colors.white,
                                       text: otherUserdata['email'],
                                       weight: FontWeight.w300,
-                                      size: 15),
+                                      size: h * 0.013),
                                   const SizedBox(
                                     height: 10,
                                   ),
                                   Container(
                                     height: 32,
-                                    width: 150,
                                     decoration: BoxDecoration(
                                         color: const Color.fromARGB(
                                             125, 69, 69, 69),

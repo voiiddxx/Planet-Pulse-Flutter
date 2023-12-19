@@ -60,6 +60,8 @@ class AuthProvider extends ChangeNotifier {
           company: userData['company'],
         );
         return response.statusCode;
+      } else {
+        showSnackBar(context, response.body, Colors.red);
       }
     } catch (e) {
       if (context.mounted) {
